@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package example; 
 public class Ejemplo2
 {
@@ -7,3 +8,5 @@ public class Ejemplo2
         this.MatarEusopio = MatarEusopio;
     } 
 }
+=======
+>>>>>>> Willywes/master
