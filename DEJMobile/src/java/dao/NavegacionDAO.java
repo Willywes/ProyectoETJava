@@ -6,7 +6,7 @@
 package dao;
 
 import conexion.Conexion;
-import dto.*;
+import dto.NavegacionDTO;
 import inteface.CrearCRUD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,8 +16,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
-      private static final String SQL_INSERT = "INSERT INTO navegacion(id, descripcion,precio) VALUES(?,?,?)";
+public class NavegacionDAO implements CrearCRUD<NavegacionDTO> {
+
+    private static final String SQL_INSERT = "INSERT INTO navegacion(id, descripcion,precio) VALUES(?,?,?)";
     private static final String SQL_DELETE = "DELETE FROM navegacion WHERE id = ?";
     private static final String SQL_UPDATE = "UPDATE navegacion SET id = ?, descripcion = ?, precio=? WHERE descripcion = ? ";
     private static final String SQL_READ = "SELECT * FROM navegacion WHERE id = ?";
@@ -25,6 +26,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
 
     private static final Conexion con = Conexion.conectar();
 
+    @Override
     public boolean create(NavegacionDTO o) {
 
         PreparedStatement ps;
@@ -46,6 +48,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         return false;
     }
 
+    @Override
     public boolean delete(Object key) {
         PreparedStatement ps;
         try {
@@ -64,6 +67,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         return false;
     }
 
+    @Override
     public boolean update(NavegacionDTO o) {
         PreparedStatement ps;
 
@@ -83,6 +87,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         return false;
     }
 
+    @Override
     public NavegacionDTO read(Object key) {
 
         PreparedStatement ps;
@@ -109,6 +114,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         return navegacion;
     }
 
+    @Override
     public List<NavegacionDTO> readAll() {
 
         PreparedStatement ps;
@@ -132,6 +138,5 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
 
         return listaNavegacion;
     }
-    
-    
+
 }

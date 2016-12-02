@@ -32,9 +32,9 @@ public class ComunaDAO implements CrearCRUD<ComunaDTO> {
 
     @Override
     public boolean create(ComunaDTO o) {
-        
+
         PreparedStatement ps;
-        
+
         try {
             ps = con.getCn().prepareStatement(SQL_INSERT);
             ps.setInt(1, o.getId());
@@ -120,15 +120,15 @@ public class ComunaDAO implements CrearCRUD<ComunaDTO> {
 
     @Override
     public List<ComunaDTO> readAll() {
-        
+
         PreparedStatement ps;
         ResultSet rs;
         ArrayList<ComunaDTO> listaComuna = new ArrayList();
-        
+
         try {
 
             ps = con.getCn().prepareStatement(SQL_READALL);
-            
+
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -139,7 +139,7 @@ public class ComunaDAO implements CrearCRUD<ComunaDTO> {
         } finally {
             con.desconectar();
         }
-        
+
         return listaComuna;
     }
 

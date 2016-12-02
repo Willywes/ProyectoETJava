@@ -6,7 +6,7 @@
 package dao;
 
 import conexion.Conexion;
-import dto.*;
+import dto.MinutoDTO;
 import inteface.CrearCRUD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MinutoDAO implements CrearCRUD<MinutoDTO>{
+public class MinutoDAO implements CrearCRUD<MinutoDTO> {
 
     private static final String SQL_INSERT = "INSERT INTO minuto(id, descripcion,precio) VALUES(?,?,?)";
     private static final String SQL_DELETE = "DELETE FROM minuto WHERE id = ?";

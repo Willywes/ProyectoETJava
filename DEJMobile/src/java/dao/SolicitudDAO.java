@@ -6,7 +6,7 @@
 package dao;
 
 import conexion.Conexion;
-import dto.*;
+import dto.SolicitudDTO;
 import inteface.CrearCRUD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
+public class SolicitudDAO implements CrearCRUD<SolicitudDTO> {
+
     private static final String SQL_INSERT = "INSERT INTO solicitud(id, nombre) VALUES(?,?)";
     private static final String SQL_DELETE = "DELETE FROM solicitud WHERE id = ?";
     private static final String SQL_UPDATE = "UPDATE solicitud SET id = ?, nombre = ? WHERE nombre = ? ";
@@ -24,19 +25,20 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
     private static final String SQL_READALL = "SELECT * FROM solicitud";
 
     private static final Conexion con = Conexion.conectar();
-    
-     public boolean create(SolicitudDTO o) {
-        
+
+    @Override
+    public boolean create(SolicitudDTO o) {
+
         PreparedStatement ps;
-        
+
         try {
             ps = con.getCn().prepareStatement(SQL_INSERT);
             ps.setBoolean(1, o.getEntrega());
             ps.setInt(2, o.getTotal());
             //ps.setDate(3, x); aqui deberia ir la fecha lo buscare
             ps.setString(4, o.getCliente_rut().getRut());
-           // ps.setString(5, o.getNavegacion_id().getId()); al ser autoincrementable no lo podemos poner en el dto ahi q revisar eso
-           //ps.setInt(6,o.getMinuto_id().getId());
+            // ps.setString(5, o.getNavegacion_id().getId()); al ser autoincrementable no lo podemos poner en el dto ahi q revisar eso
+            //ps.setInt(6,o.getMinuto_id().getId());
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -46,8 +48,10 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
             con.desconectar();
         }
         return false;
-     }
-           public boolean delete(Object key) {
+    }
+
+    @Override
+    public boolean delete(Object key) {
         PreparedStatement ps;
         try {
 
@@ -64,8 +68,9 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
 
         return false;
     }
-           
-       public boolean update(SolicitudDTO o) {
+
+    @Override
+    public boolean update(SolicitudDTO o) {
         PreparedStatement ps;
 
         try {
@@ -75,8 +80,8 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
             ps.setInt(2, o.getTotal());
             //ps.setDate(3, x); aqui deberia ir la fecha lo buscare
             ps.setString(4, o.getCliente_rut().getRut());
-           // ps.setString(5, o.getNavegacion_id().getId()); al ser autoincrementable no lo podemos poner en el dto ahi q revisar eso
-           //ps.setInt(6,o.getMinuto_id().getId());
+            // ps.setString(5, o.getNavegacion_id().getId()); al ser autoincrementable no lo podemos poner en el dto ahi q revisar eso
+            //ps.setInt(6,o.getMinuto_id().getId());
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -86,8 +91,10 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
             con.desconectar();
         }
         return false;
-    }    
-        public SolicitudDTO read(Object key) {
+    }
+
+    @Override
+    public SolicitudDTO read(Object key) {
 
         PreparedStatement ps;
         ResultSet rs;
@@ -112,8 +119,9 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
         }
         return solicitud;
     }
-        
-         public List<SolicitudDTO> readAll() {
+
+    @Override
+    public List<SolicitudDTO> readAll() {
 
         PreparedStatement ps;
         ResultSet rs;
@@ -137,6 +145,4 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
         return listaSolicitud;
     }
 
-       
 }
-  
