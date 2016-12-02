@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SolicitudDAO {
+public class SolicitudDAO implements CrearCRUD<SolicitudDTO>{
     private static final String SQL_INSERT = "INSERT INTO solicitud(id, nombre) VALUES(?,?)";
     private static final String SQL_DELETE = "DELETE FROM solicitud WHERE id = ?";
     private static final String SQL_UPDATE = "UPDATE solicitud SET id = ?, nombre = ? WHERE nombre = ? ";

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NavegacionDAO {
+public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
       private static final String SQL_INSERT = "INSERT INTO navegacion(id, descripcion,precio) VALUES(?,?,?)";
     private static final String SQL_DELETE = "DELETE FROM navegacion WHERE id = ?";
     private static final String SQL_UPDATE = "UPDATE navegacion SET id = ?, descripcion = ?, precio=? WHERE descripcion = ? ";
