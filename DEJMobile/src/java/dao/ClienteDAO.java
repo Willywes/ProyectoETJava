@@ -38,13 +38,13 @@ private static final Conexion con = Conexion.conectar();
             ps = con.getCn().prepareStatement(SQL_INSERT);
             ps.setString(1, o.getClave());
             ps.setString(2, o.getRut());
-            ps.setString(2, o.getNombre());
-            ps.setString(2, o.getPaterno());
-            ps.setString(2, o.getMaterno());
-            ps.setString(2, o.getDireccion());
-          //  ps.setInt(2, o.getComuna_id());
-            ps.setString(2, o.getNumero());
-            ps.setInt(2, o.getTelefono());
+            ps.setString(3, o.getNombre());
+            ps.setString(4, o.getPaterno());
+            ps.setString(5, o.getMaterno());
+            ps.setString(6, o.getDireccion());
+            ps.setInt(7, o.getComuna_id().getId());
+            ps.setString(8, o.getNumero());
+            ps.setInt(9, o.getTelefono());
             if (ps.executeUpdate() > 0) {
                 return true;
             }
