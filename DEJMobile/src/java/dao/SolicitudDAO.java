@@ -33,12 +33,13 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO> {
 
         try {
             ps = con.getCn().prepareStatement(SQL_INSERT);
-            ps.setBoolean(1, o.getEntrega());
-            ps.setInt(2, o.getTotal());
-            //ps.setDate(3, x); aqui deberia ir la fecha lo buscare
+            ps.setInt(1, o.getId());
+            ps.setBoolean(2, o.getEntrega());
+            ps.setInt(3, o.getTotal());
+            //ps.setTimestamp(3, o.getFecha_hora()); aqui deberia ir la fecha lo buscare
             ps.setString(4, o.getCliente_rut().getRut());
-            // ps.setString(5, o.getNavegacion_id().getId()); al ser autoincrementable no lo podemos poner en el dto ahi q revisar eso
-            //ps.setInt(6,o.getMinuto_id().getId());
+            ps.setInt(5,o.getNavegacion_id().getId()); //al ser autoincrementable no lo podemos poner en el dto ahi q revisar eso
+            ps.setInt(6,o.getMinuto_id().getId());
             if (ps.executeUpdate() > 0) {
                 return true;
             }

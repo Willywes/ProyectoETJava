@@ -12,7 +12,7 @@ import java.sql.Date;
  * @author jimmymeneses
  */
 public class SolicitudDTO {
-
+    private int id;
     private boolean entrega;
     private int total;
     private Date fecha_hora;
@@ -22,14 +22,24 @@ public class SolicitudDTO {
     public SolicitudDTO() {
     }
 
-    public SolicitudDTO(boolean entrega, int total, Date fecha_hora,ClienteDTO cliente_rut,NavegacionDTO navegacion_id,MinutoDTO minuto_id) {
+    public SolicitudDTO(int id, boolean entrega, int total, Date fecha_hora, ClienteDTO cliente_rut, NavegacionDTO navegacion_id, MinutoDTO minuto_id) {
+        this.id = id;
         this.entrega = entrega;
         this.total = total;
         this.fecha_hora = fecha_hora;
-        this.cliente_rut=cliente_rut;
-        this.navegacion_id=navegacion_id;
-        this.minuto_id=minuto_id;
+        this.cliente_rut = cliente_rut;
+        this.navegacion_id = navegacion_id;
+        this.minuto_id = minuto_id;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public boolean getEntrega() {
         return entrega;

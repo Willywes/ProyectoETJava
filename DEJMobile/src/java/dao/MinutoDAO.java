@@ -32,8 +32,9 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO> {
 
         try {
             ps = con.getCn().prepareStatement(SQL_INSERT);
-            ps.setInt(1, o.getPrecio());
-            ps.setString(2, o.getDescripcion());
+            ps.setInt(1, o.getId());
+            ps.setInt(2, o.getPrecio());
+            ps.setString(3, o.getDescripcion());
 
             if (ps.executeUpdate() > 0) {
                 return true;
@@ -94,8 +95,8 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO> {
 
             ps = con.getCn().prepareStatement(SQL_READ);
             ps.setString(1, key.toString());
-            //ps.setString(2, key.toString());
-
+            ps.setString(2, key.toString());
+           // ps.setInt(3, (int)(key).toString());
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -123,7 +124,7 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO> {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                // listaMinuto.add(new MinutoDTO(rs.getString(2),rs.getInt(1),));
+                 listaMinuto.add(new MinutoDTO(rs.getInt(1),rs.getString(2),rs.getInt(3)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MinutoDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,6 +1,7 @@
 package conexion;
 
-import dao.ComunaDAO;
+import dao.*;
+import dto.ClienteDTO;
 import dto.ComunaDTO;
 import java.util.ArrayList;
 import java.sql.Date;
@@ -27,8 +28,8 @@ public class NewClass {
         ComunaDTO c = new ComunaDTO();
         ComunaDAO cdao = new ComunaDAO();
 
-//        c = cdao.read(1101);
-//        System.out.println(c.getId() + " - " + c.getNombre());
+//      c = cdao.read(1101);
+//      System.out.println(c.getId() + " - " + c.getNombre());
 //        
 //        List<ComunaDTO> lista = cdao.readAll();
 //        for (ComunaDTO d : lista) {
@@ -38,5 +39,6 @@ public class NewClass {
         
         System.out.println(date.toString());
 
+        
     }
 }

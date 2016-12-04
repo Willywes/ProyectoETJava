@@ -33,8 +33,9 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO> {
 
         try {
             ps = con.getCn().prepareStatement(SQL_INSERT);
-            ps.setInt(1, o.getPrecio());
-            ps.setString(2, o.getDescripcion());
+            ps.setInt(1, o.getId());
+            ps.setInt(2, o.getPrecio());
+            ps.setString(3, o.getDescripcion());
 
             if (ps.executeUpdate() > 0) {
                 return true;
