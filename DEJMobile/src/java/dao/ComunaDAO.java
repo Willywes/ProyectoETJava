@@ -24,7 +24,7 @@ public class ComunaDAO implements CrearCRUD<ComunaDTO> {
 
     private static final String SQL_INSERT = "INSERT INTO comuna(id, nombre) VALUES(?,?)";
     private static final String SQL_DELETE = "DELETE FROM comuna WHERE id = ?";
-    private static final String SQL_UPDATE = "UPDATE comuna SET id = ?, nombre = ? WHERE nombre = ? ";
+    private static final String SQL_UPDATE = "UPDATE comuna SET nombre = ? WHERE id = ? ";
     private static final String SQL_READ = "SELECT * FROM comuna WHERE id = ?";
     private static final String SQL_READALL = "SELECT * FROM comuna";
 
@@ -78,8 +78,9 @@ public class ComunaDAO implements CrearCRUD<ComunaDTO> {
         try {
 
             ps = con.getCn().prepareStatement(SQL_UPDATE);
-            ps.setInt(1, o.getId());
             ps.setString(1, o.getNombre());
+            ps.setInt(2, o.getId());
+            
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -102,11 +103,10 @@ public class ComunaDAO implements CrearCRUD<ComunaDTO> {
 
             ps = con.getCn().prepareStatement(SQL_READ);
             ps.setString(1, key.toString());
-            //ps.setString(2, key.toString());
 
             rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 comuna = new ComunaDTO(rs.getInt(1), rs.getString(2));
             }
 

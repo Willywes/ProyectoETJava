@@ -16,6 +16,11 @@ public class NavegacionDTO {
 
     public NavegacionDTO() {
     }
+    
+    public NavegacionDTO(String descripcion, int precio) {
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
 
     public NavegacionDTO(int id, String descripcion, int precio) {
         this.id = id;

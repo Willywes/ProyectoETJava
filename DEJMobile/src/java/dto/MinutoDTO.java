@@ -16,13 +16,25 @@ public class MinutoDTO {
 
     public MinutoDTO() {
     }
+    
+    public MinutoDTO(String descripcion, int precio) {
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
 
     public MinutoDTO(int id, String descripcion, int precio) {
         this.id = id;
         this.descripcion = descripcion;
         this.precio = precio;
     }
+    
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
 
     public String getDescripcion() {
@@ -41,12 +53,6 @@ public class MinutoDTO {
         this.precio = precio;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    
 
 }

@@ -27,7 +27,7 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
     private static final String SQL_UPDATE = "UPDATE cliente SET clave = ?, nombre = ?, paterno = ?, materno = ?, direccion = ?, numero = ?, comuna_id = ?, telefono = ? WHERE rut = ?";
     private static final String SQL_READ = "SELECT * FROM cliente WHERE rut = ?";
     private static final String SQL_READALL = "SELECT * FROM cliente";
-  //  private static final String SQL_EXISTE="SELECT clave, rut  FROM cliente WHERE clave=? and rut=?";
+ 
     private static final Conexion con = Conexion.conectar();
     
     @Override
@@ -125,7 +125,7 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
 
             rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (rs.next()) {
                 cliente = new ClienteDTO(
                 rs.getString(1), 
                 rs.getString(2),
