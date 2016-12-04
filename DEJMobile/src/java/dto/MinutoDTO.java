@@ -10,17 +10,20 @@ package dto;
  * @author jimmymeneses
  */
 public class MinutoDTO {
-    
+    private int id;
     private String descripcion;
     private int precio;
 
     public MinutoDTO() {
     }
 
-    public MinutoDTO( String descripcion, int precio) {
+    public MinutoDTO(int id, String descripcion, int precio) {
+        this.id = id;
         this.descripcion = descripcion;
         this.precio = precio;
     }
+
+
 
     public String getDescripcion() {
         return descripcion;
@@ -36,6 +39,14 @@ public class MinutoDTO {
 
     public void setPrecio(int precio) {
         this.precio = precio;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
