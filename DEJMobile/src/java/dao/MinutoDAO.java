@@ -35,7 +35,7 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO> {
             ps = con.getCn().prepareStatement(SQL_INSERT);
             
             ps.setString(1, o.getDescripcion());
-            ps.setInt(3, o.getPrecio());
+            ps.setInt(2, o.getPrecio());
             
 
             if (ps.executeUpdate() > 0) {
@@ -61,7 +61,7 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO> {
                 return true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ComunaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MinutoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             con.desconectar();
         }
