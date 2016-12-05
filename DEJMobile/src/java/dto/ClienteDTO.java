@@ -107,6 +107,11 @@ public class ClienteDTO {
     public void setComunaDTO(ComunaDTO comunaDTO) {
         this.comunaDTO = comunaDTO;
     }
+
+    @Override
+    public String toString() {
+        return "ClienteDTO{" + "clave=" + clave + ", rut=" + rut + ", nombre=" + nombre + ", paterno=" + paterno + ", materno=" + materno + ", direccion=" + direccion + ", numero=" + numero + ", comunaDTO=" + comunaDTO.getNombre() + ", telefono=" + telefono + '}';
+    }
     
     
             

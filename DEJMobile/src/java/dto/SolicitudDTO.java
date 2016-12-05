@@ -5,13 +5,18 @@
  */
 package dto;
 
-import java.sql.Date;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import utilidades.ControlFecha;
 
 /**
  *
  * @author jimmymeneses
  */
 public class SolicitudDTO {
+
     private int id;
     private boolean entrega;
     private int total;
@@ -19,10 +24,10 @@ public class SolicitudDTO {
     private ClienteDTO clienteDTO;
     private NavegacionDTO navegacionDTO;
     private MinutoDTO minutoDTO;
-    
+
     public SolicitudDTO() {
     }
-    
+
     public SolicitudDTO(boolean entrega, int total, Date fecha_hora, ClienteDTO clienteDTO, NavegacionDTO navegacionDTO, MinutoDTO minutoDTO) {
         this.entrega = entrega;
         this.total = total;
@@ -98,8 +103,9 @@ public class SolicitudDTO {
         this.minutoDTO = minutoDTO;
     }
 
-    
-    
- 
-    
+    @Override
+    public String toString() {
+        return "SolicitudDTO{" + "id=" + id + ", entrega=" + entrega + ", total=" + total + ", fecha_hora=" + ControlFecha.formatearFecha(fecha_hora) + ", clienteDTO=" + clienteDTO.getNombre() + ", navegacionDTO=" + navegacionDTO.getDescripcion() + ", minutoDTO=" + minutoDTO.getDescripcion() + '}';
+    }
+
 }
