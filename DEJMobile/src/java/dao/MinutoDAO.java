@@ -6,7 +6,7 @@
 package dao;
 
 import conexion.Conexion;
-import dto.*;
+import dto.MinutoDTO;
 import inteface.CrearCRUD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,24 +16,27 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MinutoDAO implements CrearCRUD<MinutoDTO>{
+public class MinutoDAO implements CrearCRUD<MinutoDTO> {
 
-    private static final String SQL_INSERT = "INSERT INTO minuto(id, descripcion,precio) VALUES(?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO minuto(descripcion, precio) VALUES(?,?)";
     private static final String SQL_DELETE = "DELETE FROM minuto WHERE id = ?";
-    private static final String SQL_UPDATE = "UPDATE minuto SET id = ?, descripcion = ?, precio=? WHERE descripcion = ? ";
+    private static final String SQL_UPDATE = "UPDATE minuto SET descripcion = ?, precio=? WHERE id = ? ";
     private static final String SQL_READ = "SELECT * FROM minuto WHERE id = ?";
     private static final String SQL_READALL = "SELECT * FROM minuto";
 
     private static final Conexion con = Conexion.conectar();
 
+    @Override
     public boolean create(MinutoDTO o) {
 
         PreparedStatement ps;
 
         try {
             ps = con.getCn().prepareStatement(SQL_INSERT);
-            ps.setInt(1, o.getPrecio());
-            ps.setString(2, o.getDescripcion());
+            
+            ps.setString(1, o.getDescripcion());
+            ps.setInt(3, o.getPrecio());
+            
 
             if (ps.executeUpdate() > 0) {
                 return true;
@@ -47,6 +50,7 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO>{
         return false;
     }
 
+    @Override
     public boolean delete(Object key) {
         PreparedStatement ps;
         try {
@@ -65,14 +69,18 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO>{
         return false;
     }
 
+    @Override
     public boolean update(MinutoDTO o) {
         PreparedStatement ps;
 
         try {
 
             ps = con.getCn().prepareStatement(SQL_UPDATE);
-            ps.setInt(1, o.getPrecio());
+            
             ps.setString(1, o.getDescripcion());
+            ps.setInt(2, o.getPrecio());            
+            ps.setInt(3,o.getId());
+            
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -84,6 +92,7 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO>{
         return false;
     }
 
+    @Override
     public MinutoDTO read(Object key) {
 
         PreparedStatement ps;
@@ -93,13 +102,12 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO>{
         try {
 
             ps = con.getCn().prepareStatement(SQL_READ);
-            ps.setString(1, key.toString());
-            //ps.setString(2, key.toString());
-
+            ps.setInt(1, (int) key);
+                       
             rs = ps.executeQuery();
 
-            while (rs.next()) {
-                // minuto = new MinutoDTO(rs.getInt(1), rs.getString(2));
+            if (rs.next()) {
+                minuto = new MinutoDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
             }
 
         } catch (SQLException ex) {
@@ -110,6 +118,7 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO>{
         return minuto;
     }
 
+    @Override
     public List<MinutoDTO> readAll() {
 
         PreparedStatement ps;
@@ -123,7 +132,7 @@ public class MinutoDAO implements CrearCRUD<MinutoDTO>{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                // listaMinuto.add(new MinutoDTO(rs.getString(2),rs.getInt(1),));
+                 listaMinuto.add(new MinutoDTO(rs.getInt(1),rs.getString(2),rs.getInt(3)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MinutoDAO.class.getName()).log(Level.SEVERE, null, ex);

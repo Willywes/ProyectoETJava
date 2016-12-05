@@ -11,20 +11,20 @@ package dto;
  */
 public class ClienteDTO {
     
-    String clave;
-    String rut;
-    String nombre;
-    String paterno;
-    String materno;
-    String direccion;
-    String numero;
-    ComunaDTO comuna_id;
-    int telefono;
+    private String clave;
+    private String rut;
+    private String nombre;
+    private String paterno;
+    private String materno;
+    private String direccion;
+    private String numero;
+    private ComunaDTO comunaDTO;
+    private int telefono;
 
     public ClienteDTO(){
     }
-    
-    public ClienteDTO(String clave, String rut, String nombre, String paterno, String materno, String direccion, String numero, ComunaDTO comuna_id, int telefono) {
+
+    public ClienteDTO(String clave, String rut, String nombre, String paterno, String materno, String direccion, String numero, ComunaDTO comunaDTO, int telefono) {
         this.clave = clave;
         this.rut = rut;
         this.nombre = nombre;
@@ -32,7 +32,15 @@ public class ClienteDTO {
         this.materno = materno;
         this.direccion = direccion;
         this.numero = numero;
-        this.comuna_id = comuna_id;
+        this.comunaDTO = comunaDTO;
+        this.telefono = telefono;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
@@ -92,21 +100,15 @@ public class ClienteDTO {
         this.numero = numero;
     }
 
-    public ComunaDTO getComuna_id() {
-        return comuna_id;
+    public ComunaDTO getComunaDTO() {
+        return comunaDTO;
     }
 
-    public void setComuna_id(ComunaDTO comuna_id) {
-        this.comuna_id = comuna_id;
+    public void setComunaDTO(ComunaDTO comunaDTO) {
+        this.comunaDTO = comunaDTO;
     }
-
-    public int getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
+    
+    
             
     
 }

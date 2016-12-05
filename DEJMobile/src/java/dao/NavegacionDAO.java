@@ -6,7 +6,7 @@
 package dao;
 
 import conexion.Conexion;
-import dto.*;
+import dto.NavegacionDTO;
 import inteface.CrearCRUD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,23 +16,25 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
-      private static final String SQL_INSERT = "INSERT INTO navegacion(id, descripcion,precio) VALUES(?,?,?)";
+public class NavegacionDAO implements CrearCRUD<NavegacionDTO> {
+
+    private static final String SQL_INSERT = "INSERT INTO navegacion(descripcion, precio) VALUES(?,?)";
     private static final String SQL_DELETE = "DELETE FROM navegacion WHERE id = ?";
-    private static final String SQL_UPDATE = "UPDATE navegacion SET id = ?, descripcion = ?, precio=? WHERE descripcion = ? ";
+    private static final String SQL_UPDATE = "UPDATE navegacion SET descripcion = ?, precio=? WHERE id = ? ";
     private static final String SQL_READ = "SELECT * FROM navegacion WHERE id = ?";
     private static final String SQL_READALL = "SELECT * FROM navegacion";
 
     private static final Conexion con = Conexion.conectar();
 
+    @Override
     public boolean create(NavegacionDTO o) {
 
         PreparedStatement ps;
 
         try {
             ps = con.getCn().prepareStatement(SQL_INSERT);
-            ps.setInt(1, o.getPrecio());
-            ps.setString(2, o.getDescripcion());
+            ps.setString(1, o.getDescripcion());
+            ps.setInt(2, o.getPrecio());           
 
             if (ps.executeUpdate() > 0) {
                 return true;
@@ -46,6 +48,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         return false;
     }
 
+    @Override
     public boolean delete(Object key) {
         PreparedStatement ps;
         try {
@@ -64,14 +67,18 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         return false;
     }
 
+    @Override
     public boolean update(NavegacionDTO o) {
         PreparedStatement ps;
 
         try {
 
             ps = con.getCn().prepareStatement(SQL_UPDATE);
-            ps.setInt(1, o.getPrecio());
+            
             ps.setString(1, o.getDescripcion());
+            ps.setInt(2, o.getPrecio());            
+            ps.setInt(3,o.getId());
+            
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -83,6 +90,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         return false;
     }
 
+    @Override
     public NavegacionDTO read(Object key) {
 
         PreparedStatement ps;
@@ -92,13 +100,12 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         try {
 
             ps = con.getCn().prepareStatement(SQL_READ);
-            ps.setString(1, key.toString());
-            //ps.setString(2, key.toString());
+            ps.setInt(1, (int) key);
 
             rs = ps.executeQuery();
 
-            while (rs.next()) {
-                // navegacion = new NavegacionDTO(rs.getInt(1), rs.getString(2));
+            if (rs.next()) {
+                navegacion = new NavegacionDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
             }
 
         } catch (SQLException ex) {
@@ -109,6 +116,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
         return navegacion;
     }
 
+    @Override
     public List<NavegacionDTO> readAll() {
 
         PreparedStatement ps;
@@ -122,7 +130,7 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                // listaNavegacion.add(new MinutoDTO(rs.getString(2),rs.getInt(1),));
+                listaNavegacion.add(new NavegacionDTO(rs.getInt(1),rs.getString(2),rs.getInt(3)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(NavegacionDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,6 +140,5 @@ public class NavegacionDAO implements CrearCRUD<NavegacionDTO>{
 
         return listaNavegacion;
     }
-    
-    
+
 }

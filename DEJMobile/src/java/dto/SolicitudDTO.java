@@ -12,26 +12,45 @@ import java.sql.Date;
  * @author jimmymeneses
  */
 public class SolicitudDTO {
-
+    private int id;
     private boolean entrega;
     private int total;
     private Date fecha_hora;
-    private ClienteDTO cliente_rut;
-    private NavegacionDTO navegacion_id;
-    private MinutoDTO minuto_id;
+    private ClienteDTO clienteDTO;
+    private NavegacionDTO navegacionDTO;
+    private MinutoDTO minutoDTO;
+    
     public SolicitudDTO() {
     }
-
-    public SolicitudDTO(boolean entrega, int total, Date fecha_hora,ClienteDTO cliente_rut,NavegacionDTO navegacion_id,MinutoDTO minuto_id) {
+    
+    public SolicitudDTO(boolean entrega, int total, Date fecha_hora, ClienteDTO clienteDTO, NavegacionDTO navegacionDTO, MinutoDTO minutoDTO) {
         this.entrega = entrega;
         this.total = total;
         this.fecha_hora = fecha_hora;
-        this.cliente_rut=cliente_rut;
-        this.navegacion_id=navegacion_id;
-        this.minuto_id=minuto_id;
+        this.clienteDTO = clienteDTO;
+        this.navegacionDTO = navegacionDTO;
+        this.minutoDTO = minutoDTO;
     }
 
-    public boolean getEntrega() {
+    public SolicitudDTO(int id, boolean entrega, int total, Date fecha_hora, ClienteDTO clienteDTO, NavegacionDTO navegacionDTO, MinutoDTO minutoDTO) {
+        this.id = id;
+        this.entrega = entrega;
+        this.total = total;
+        this.fecha_hora = fecha_hora;
+        this.clienteDTO = clienteDTO;
+        this.navegacionDTO = navegacionDTO;
+        this.minutoDTO = minutoDTO;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isEntrega() {
         return entrega;
     }
 
@@ -55,29 +74,32 @@ public class SolicitudDTO {
         this.fecha_hora = fecha_hora;
     }
 
-    public ClienteDTO getCliente_rut() {
-        return cliente_rut;
+    public ClienteDTO getClienteDTO() {
+        return clienteDTO;
     }
 
-    public void setCliente_rut(ClienteDTO cliente_rut) {
-        this.cliente_rut = cliente_rut;
+    public void setClienteDTO(ClienteDTO clienteDTO) {
+        this.clienteDTO = clienteDTO;
     }
 
-    public NavegacionDTO getNavegacion_id() {
-        return navegacion_id;
+    public NavegacionDTO getNavegacionDTO() {
+        return navegacionDTO;
     }
 
-    public void setNavegacion_id(NavegacionDTO navegacion_id) {
-        this.navegacion_id = navegacion_id;
+    public void setNavegacionDTO(NavegacionDTO navegacionDTO) {
+        this.navegacionDTO = navegacionDTO;
     }
 
-    public MinutoDTO getMinuto_id() {
-        return minuto_id;
+    public MinutoDTO getMinutoDTO() {
+        return minutoDTO;
     }
 
-    public void setMinuto_id(MinutoDTO minuto_id) {
-        this.minuto_id = minuto_id;
+    public void setMinutoDTO(MinutoDTO minutoDTO) {
+        this.minutoDTO = minutoDTO;
     }
+
+    
+    
  
     
 }

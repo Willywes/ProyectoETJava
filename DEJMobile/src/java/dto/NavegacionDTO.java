@@ -10,15 +10,30 @@ package dto;
  * @author jimmymeneses
  */
 public class NavegacionDTO {
+    private int id;
     private String descripcion;
     private int precio;
 
     public NavegacionDTO() {
     }
-
+    
     public NavegacionDTO(String descripcion, int precio) {
         this.descripcion = descripcion;
         this.precio = precio;
+    }
+
+    public NavegacionDTO(int id, String descripcion, int precio) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.precio = precio;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescripcion() {

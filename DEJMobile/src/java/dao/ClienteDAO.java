@@ -10,7 +10,7 @@ package dao;
  * @author jimmymeneses
  */
 import conexion.Conexion;
-import dto.*;
+import dto.ClienteDTO;
 import inteface.CrearCRUD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,14 +22,15 @@ import java.util.logging.Logger;
 
 public class ClienteDAO implements CrearCRUD<ClienteDTO> {
 
-    private static final String SQL_INSERT = "INSERT INTO cliente( clave,rut, nombre, paterno,materno, direccion, numero,  comuna_id, telefono) VALUES(?,?,?,?,?,?,?,?,?)";
-    private static final String SQL_DELETE = "DELETE FROM cliente WHERE id = ?";
-    private static final String SQL_UPDATE = "UPDATE cliente SET id = ?, nombre = ? WHERE nombre = ? ";
-    private static final String SQL_READ = "SELECT * FROM cliente WHERE id = ?";
+    private static final String SQL_INSERT = "INSERT INTO cliente(clave, rut, nombre, paterno, materno, direccion, numero,  comuna_id, telefono) VALUES(?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_DELETE = "DELETE FROM cliente WHERE rut = ?";
+    private static final String SQL_UPDATE = "UPDATE cliente SET clave = ?, nombre = ?, paterno = ?, materno = ?, direccion = ?, numero = ?, comuna_id = ?, telefono = ? WHERE rut = ?";
+    private static final String SQL_READ = "SELECT * FROM cliente WHERE rut = ?";
     private static final String SQL_READALL = "SELECT * FROM cliente";
-
+ 
     private static final Conexion con = Conexion.conectar();
-
+    
+    @Override
     public boolean create(ClienteDTO o) {
 
         PreparedStatement ps;
@@ -43,11 +44,13 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
             ps.setString(5, o.getMaterno());
             ps.setString(6, o.getDireccion());
             ps.setString(7, o.getNumero());
-            ps.setInt(8, o.getComuna_id().getId());
+            ps.setInt(8, o.getComunaDTO().getId());
             ps.setInt(9, o.getTelefono());
+            
             if (ps.executeUpdate() > 0) {
                 return true;
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -57,12 +60,15 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
         return false;
     }
 
+    @Override
     public boolean delete(Object key) {
+        
         PreparedStatement ps;
+        
         try {
 
             ps = con.getCn().prepareStatement(SQL_DELETE);
-            ps.setInt(1, (int) key);
+            ps.setString(1, key.toString()); // tratamos al rut como string aunque no deberiamos. el rut no es string
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -76,21 +82,22 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
     }
 
     //este hay que revisarlo
+    @Override
     public boolean update(ClienteDTO o) {
         PreparedStatement ps;
 
         try {
 
             ps = con.getCn().prepareStatement(SQL_UPDATE);
-            ps.setString(1, o.getClave());
-            ps.setString(2, o.getRut());
+            ps.setString(1, o.getClave());            
             ps.setString(2, o.getNombre());
-            ps.setString(2, o.getPaterno());
-            ps.setString(2, o.getMaterno());
-            ps.setString(2, o.getDireccion());
-            ps.setInt(2, o.getComuna_id().getId());
-            ps.setString(2, o.getNumero());
-            ps.setInt(2, o.getTelefono());
+            ps.setString(3, o.getPaterno());
+            ps.setString(4, o.getMaterno());
+            ps.setString(5, o.getDireccion());
+            ps.setString(6, o.getNumero());
+            ps.setInt(7, o.getComunaDTO().getId());            
+            ps.setInt(8, o.getTelefono());
+            ps.setString(9, o.getRut());
 
             if (ps.executeUpdate() > 0) {
                 return true;
@@ -103,6 +110,7 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
         return false;
     }
 
+    @Override
     public ClienteDTO read(Object key) {
 
         PreparedStatement ps;
@@ -112,13 +120,22 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
         try {
 
             ps = con.getCn().prepareStatement(SQL_READ);
+            
             ps.setString(1, key.toString());
-            //ps.setString(2, key.toString());
 
             rs = ps.executeQuery();
 
-            while (rs.next()) {
-                //cliente = new ClienteDTO(rs.getInt(1), rs.getString(2));
+            if (rs.next()) {
+                cliente = new ClienteDTO(
+                rs.getString(1), 
+                rs.getString(2),
+                rs.getString(3),
+                rs.getString(4),
+                rs.getString(5),
+                rs.getString(6),
+                rs.getString(7),
+                new ComunaDAO().read(rs.getInt(8)),
+                rs.getInt(9));
             }
 
         } catch (SQLException ex) {
@@ -129,6 +146,7 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
         return cliente;
     }
 
+    @Override
     public List<ClienteDTO> readAll() {
 
         PreparedStatement ps;
@@ -154,3 +172,5 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
     }
 
 }
+
+
