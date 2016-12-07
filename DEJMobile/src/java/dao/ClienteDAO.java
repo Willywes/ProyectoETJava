@@ -27,9 +27,9 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
     private static final String SQL_UPDATE = "UPDATE cliente SET clave = ?, nombre = ?, paterno = ?, materno = ?, direccion = ?, numero = ?, comuna_id = ?, telefono = ? WHERE rut = ?";
     private static final String SQL_READ = "SELECT * FROM cliente WHERE rut = ?";
     private static final String SQL_READALL = "SELECT * FROM cliente";
- 
+
     private static final Conexion con = Conexion.conectar();
-    
+
     @Override
     public boolean create(ClienteDTO o) {
 
@@ -46,11 +46,11 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
             ps.setString(7, o.getNumero());
             ps.setInt(8, o.getComunaDTO().getId());
             ps.setInt(9, o.getTelefono());
-            
+
             if (ps.executeUpdate() > 0) {
                 return true;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -62,9 +62,9 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
 
     @Override
     public boolean delete(Object key) {
-        
+
         PreparedStatement ps;
-        
+
         try {
 
             ps = con.getCn().prepareStatement(SQL_DELETE);
@@ -89,13 +89,13 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
         try {
 
             ps = con.getCn().prepareStatement(SQL_UPDATE);
-            ps.setString(1, o.getClave());            
+            ps.setString(1, o.getClave());
             ps.setString(2, o.getNombre());
             ps.setString(3, o.getPaterno());
             ps.setString(4, o.getMaterno());
             ps.setString(5, o.getDireccion());
             ps.setString(6, o.getNumero());
-            ps.setInt(7, o.getComunaDTO().getId());            
+            ps.setInt(7, o.getComunaDTO().getId());
             ps.setInt(8, o.getTelefono());
             ps.setString(9, o.getRut());
 
@@ -120,22 +120,22 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
         try {
 
             ps = con.getCn().prepareStatement(SQL_READ);
-            
+
             ps.setString(1, key.toString());
 
             rs = ps.executeQuery();
 
             if (rs.next()) {
                 cliente = new ClienteDTO(
-                rs.getString(1), 
-                rs.getString(2),
-                rs.getString(3),
-                rs.getString(4),
-                rs.getString(5),
-                rs.getString(6),
-                rs.getString(7),
-                new ComunaDAO().read(rs.getInt(8)),
-                rs.getInt(9));
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        new ComunaDAO().read(rs.getInt(8)),
+                        rs.getInt(9));
             }
 
         } catch (SQLException ex) {
@@ -171,6 +171,11 @@ public class ClienteDAO implements CrearCRUD<ClienteDTO> {
         return listaCliente;
     }
 
+    /// metodos personalizados
+    public boolean ComprobarExiste(String rut) {
+
+        ClienteDTO c = read(rut);
+        return c != null;
+    }
+
 }
-
-

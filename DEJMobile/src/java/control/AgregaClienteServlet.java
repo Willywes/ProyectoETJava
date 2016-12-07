@@ -6,7 +6,9 @@
 package control;
 
 import dao.ClienteDAO;
+import dao.ComunaDAO;
 import dto.ClienteDTO;
+import utilidades.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -26,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AgregaClienteServlet", urlPatterns = {"/AgregaClienteServlet"})
 public class AgregaClienteServlet extends HttpServlet {
 
-    ClienteDAO clientes;
     private static final Logger LOG = Logger.getLogger(AgregaClienteServlet.class.getName());
 
     /**
@@ -69,10 +70,6 @@ public class AgregaClienteServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        ClienteDTO cliente = new ClienteDTO();
-        request.setAttribute("cliente", cliente);
-        request.setAttribute("lstCliente", clientes.readAll());
-        request.getRequestDispatcher("/registro.jsp").forward(request, response);
     }
 
     /**
@@ -87,59 +84,109 @@ public class AgregaClienteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ClienteDTO cliente = new ClienteDTO();
+
+        // recibir datos
+        String rut = request.getParameter("rut");
+        String clave = request.getParameter("clave");
+        String claveConfirmar = request.getParameter("clave-confirmar");
+        String nombre = request.getParameter("nombre");
+        String paterno = request.getParameter("paterno");
+        String materno = request.getParameter("materno");
+        String direccion = request.getParameter("direccion");
+        String numero = request.getParameter("numero");
+        String idComunaS = request.getParameter("id-comuna");
+        String telefonoS = request.getParameter("telefono");
+        int idComuna = 0;
+        int telefono = 0;
+
+        // instacias
+        ClienteDTO cliente;
         Map<String, String> mapMensajes = new HashMap<>();
         String mensaje;
 
-        //convertir y validar
-        cliente.setClave(request.getParameter("clave"));
-        if (cliente.getClave().isEmpty()) {
-            mapMensajes.put("clave", "Ingrese una Clave");
-        }
-
-        cliente.setRut(request.getParameter("rut"));
-        if (cliente.getClave().isEmpty()) {
+        if (Control.comprobarVacio(rut)) {
             mapMensajes.put("rut", "Ingrese un rut");
         }
 
-        cliente.setNombre(request.getParameter("nombre"));
-        if (cliente.getNombre().isEmpty()) {
-            mapMensajes.put("nombre", "Ingrese nombre ");
+//        try {
+//            if (!Control.comprobarSiRutEsValido(rut)) {
+//                mapMensajes.put("rut", "El Rut no es válido");
+//            }
+//        } catch (Exception e) {
+//            mapMensajes.put("rut", e.getMessage());
+//        }
+
+        if (Control.comprobarSiExisteRut(rut)) {
+            mapMensajes.put("rut", "este rut ya esta registrado pruebe con otro");
+        }
+        if (Control.comprobarVacio(clave)) {
+            mapMensajes.put("clave", "Ingrese una Clave");
+        }
+        if (Control.comprobarVacio(claveConfirmar)) {
+            mapMensajes.put("clave-confirmar", "Ingrese nuevamente una Clave");
+        }
+//        if (!Control.comprobarPass(clave, claveConfirmar)) {
+//            mapMensajes.put("clave-confirmar", "las claves no coinciden");
+//        }        
+        if (Control.comprobarVacio(nombre)) {
+            mapMensajes.put("nombre", "Ingrese un nombre");
+        }
+        if (Control.comprobarVacio(paterno)) {
+            mapMensajes.put("paterno", "Ingrese un apellido paterno");
+        }
+        if (Control.comprobarVacio(materno)) {
+            mapMensajes.put("materno", "Ingrese un apellido materno");
+        }
+        if (Control.comprobarVacio(direccion)) {
+            mapMensajes.put("direccion", "Ingrese una direccion");
+        }
+        if (Control.comprobarVacio(numero)) {
+            mapMensajes.put("numero", "Ingrese un numero en la direccion");
+        }
+        if (Control.comprobarVacio(idComunaS)) {
+            mapMensajes.put("id-comuna", "Seleccione una Comuna");
         }
 
-        cliente.setPaterno(request.getParameter("paterno"));
-        if (cliente.getPaterno().isEmpty()) {
-            mapMensajes.put("paterno", "Ingrese apellido del paterno");
-
+        try {
+            idComuna = Integer.parseInt(idComunaS);
+        } catch (Exception e) {
+            mapMensajes.put("id-comuna", "Seleccione una Comuna");
         }
 
-        cliente.setMaterno(request.getParameter("materno"));
-        if (cliente.getMaterno().isEmpty()) {
-            mapMensajes.put("materno", "Ingrese apellido  materno");
-
+        if (Control.comprobarVacio(telefonoS)) {
+            mapMensajes.put("telefono", "Ingrese un telefono");
         }
-        cliente.setNumero(request.get);
-
+        try {
+            telefono = Integer.parseInt(telefonoS);
+        } catch (Exception e) {
+            mapMensajes.put("telefono", "Error en el numero de telefono");
+        }
 
         //delegar lógica de negocio
         if (mapMensajes.isEmpty()) {
+            cliente = new ClienteDTO(Encriptar.getMD5(clave), rut, nombre, paterno, materno, direccion, numero, new ComunaDAO().read(idComuna), telefono);
+            ClienteDAO dao = new ClienteDAO();
+
             try {
-                clientes.create(cliente);
-                mensaje = "Cliente se agregó exitosamente";
-                LOG.log(Level.INFO, "Grabó correctamente ");
+
+                if (dao.create(cliente)) {
+                    mensaje = "Cliente se agregó exitosamente";
+                    LOG.log(Level.INFO, "Grabó correctamente ");
+                } else {
+                    mensaje = "NOOOOOOOO Cliente se agregó exitosamente";
+                    LOG.log(Level.INFO, "NO Grabó correctamente ");
+                }
+
             } catch (Exception ex) {
                 mensaje = ex.getMessage();
-                LOG.log(Level.SEVERE, "Error al grabar " + ex.getMessage());
+                LOG.log(Level.SEVERE, "Error al grabar {0}", ex.getMessage());
             }
         } else {
             mensaje = "Favor, revise el formulario";
         }
-        
-        
+
         request.setAttribute("mapMensajes", mapMensajes);
-        //request.setAttribute("mensaje", mensaje);
-        request.setAttribute("cliente", cliente);
-        request.setAttribute("lstCliente", clientes.readAll());
+        request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher("/registro.jsp").forward(request, response);
     }
 
@@ -150,10 +197,8 @@ public class AgregaClienteServlet extends HttpServlet {
  *
  * @return a String containing servlet description
  */
- @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
+// @Override
+//    public String getServletInfo() {
+//        return "Short description";
+//    }
 
-
-}

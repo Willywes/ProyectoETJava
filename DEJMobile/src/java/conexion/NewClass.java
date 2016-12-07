@@ -9,6 +9,7 @@ import dto.SolicitudDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import utilidades.Encriptar;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -68,12 +69,34 @@ public class NewClass {
 //        System.out.println(cliente);
 
 //        SolicitudDTO sol = new SolicitudDTO();
-        SolicitudDAO soli = new SolicitudDAO();
+//        SolicitudDAO soli = new SolicitudDAO();
 //
 //        sol = new SolicitudDTO(true, 2000, new Date(), new ClienteDAO().read("17753134-0"), new NavegacionDAO().read(1), new MinutoDAO().read(1));
 ////        
 //        soli.create(sol);
 //        
-        System.out.println(soli.read(7));
+ //       System.out.println(soli.read(7));
+ 
+//
+//        System.out.println(Encriptar.getMD5("ola"));
+//        System.out.println(Encriptar.getMD5("hola"));
+//        System.out.println(Encriptar.getMD5("123456789"));
+//        
+//        String rut = "";
+//
+//
+//        try {
+//             System.out.println(ClienteDTO.transformarRut(rut));
+//        } catch (Exception e) {
+//            System.out.println(e.toString());
+//        }
+//        
+//        if (ClienteDTO.validarRut(rut)) {
+//            System.out.println("correcto");
+//        }else {
+//            System.out.println("no pe");
+//        }
+ 
+
     }
 }
