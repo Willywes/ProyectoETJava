@@ -86,14 +86,14 @@ public class AgregaClienteServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         // recibir datos
-        String rut = request.getParameter("rut");
+        String rut = request.getParameter("rut").toUpperCase();
         String clave = request.getParameter("clave");
         String claveConfirmar = request.getParameter("clave-confirmar");
-        String nombre = request.getParameter("nombre");
-        String paterno = request.getParameter("paterno");
-        String materno = request.getParameter("materno");
-        String direccion = request.getParameter("direccion");
-        String numero = request.getParameter("numero");
+        String nombre = request.getParameter("nombre").toUpperCase();
+        String paterno = request.getParameter("paterno").toUpperCase();
+        String materno = request.getParameter("materno").toUpperCase();
+        String direccion = request.getParameter("direccion").toUpperCase();
+        String numero = request.getParameter("numero").toUpperCase();
         String idComunaS = request.getParameter("id-comuna");
         String telefonoS = request.getParameter("telefono");
         int idComuna = 0;
@@ -105,61 +105,62 @@ public class AgregaClienteServlet extends HttpServlet {
         String mensaje;
 
         if (Control.comprobarVacio(rut)) {
-            mapMensajes.put("rut", "Ingrese un rut");
+            mapMensajes.put("rut", "Ingrese un RUT.");
         }
 
-//        try {
-//            if (!Control.comprobarSiRutEsValido(rut)) {
-//                mapMensajes.put("rut", "El Rut no es válido");
-//            }
-//        } catch (Exception e) {
-//            mapMensajes.put("rut", e.getMessage());
-//        }
+        try {
+            String rutTemp = Control.transformarRut(rut);
+            if (!Control.validarRut(rutTemp)) {
+                mapMensajes.put("rut", "El RUT no es válido.");
+            }
+        } catch (Exception ex) {
+            mapMensajes.put("rut", ex.getMessage());
+        }
 
         if (Control.comprobarSiExisteRut(rut)) {
-            mapMensajes.put("rut", "este rut ya esta registrado pruebe con otro");
+            mapMensajes.put("rut", "este RUT ya esta registrado pruebe con otro.");
         }
         if (Control.comprobarVacio(clave)) {
             mapMensajes.put("clave", "Ingrese una Clave");
         }
         if (Control.comprobarVacio(claveConfirmar)) {
-            mapMensajes.put("clave-confirmar", "Ingrese nuevamente una Clave");
+            mapMensajes.put("clave-confirmar", "Ingrese nuevamente una Clave.");
         }
 //        if (!Control.comprobarPass(clave, claveConfirmar)) {
 //            mapMensajes.put("clave-confirmar", "las claves no coinciden");
 //        }        
         if (Control.comprobarVacio(nombre)) {
-            mapMensajes.put("nombre", "Ingrese un nombre");
+            mapMensajes.put("nombre", "Ingrese un nombre.");
         }
         if (Control.comprobarVacio(paterno)) {
-            mapMensajes.put("paterno", "Ingrese un apellido paterno");
+            mapMensajes.put("paterno", "Ingrese un apellido paterno.");
         }
         if (Control.comprobarVacio(materno)) {
-            mapMensajes.put("materno", "Ingrese un apellido materno");
+            mapMensajes.put("materno", "Ingrese un apellido materno.");
         }
         if (Control.comprobarVacio(direccion)) {
-            mapMensajes.put("direccion", "Ingrese una direccion");
+            mapMensajes.put("direccion", "Ingrese una direccion.");
         }
         if (Control.comprobarVacio(numero)) {
-            mapMensajes.put("numero", "Ingrese un numero en la direccion");
+            mapMensajes.put("numero", "Ingrese un numero en la direccion.");
         }
         if (Control.comprobarVacio(idComunaS)) {
-            mapMensajes.put("id-comuna", "Seleccione una Comuna");
+            mapMensajes.put("id-comuna", "Seleccione una Comuna.");
         }
 
         try {
             idComuna = Integer.parseInt(idComunaS);
         } catch (Exception e) {
-            mapMensajes.put("id-comuna", "Seleccione una Comuna");
+            mapMensajes.put("id-comuna", "Seleccione una Comuna.");
         }
 
         if (Control.comprobarVacio(telefonoS)) {
-            mapMensajes.put("telefono", "Ingrese un telefono");
+            mapMensajes.put("telefono", "Ingrese un telefono.");
         }
         try {
             telefono = Integer.parseInt(telefonoS);
         } catch (Exception e) {
-            mapMensajes.put("telefono", "Error en el numero de telefono");
+            mapMensajes.put("telefono", "Error en el numero de telefono.");
         }
 
         //delegar lógica de negocio
@@ -170,16 +171,16 @@ public class AgregaClienteServlet extends HttpServlet {
             try {
 
                 if (dao.create(cliente)) {
-                    mensaje = "Cliente se agregó exitosamente";
-                    LOG.log(Level.INFO, "Grabó correctamente ");
+                    mensaje = "Cliente se agregó exitosamente.";
+                    LOG.log(Level.INFO, "Grabó correctamente.");
                 } else {
-                    mensaje = "NOOOOOOOO Cliente se agregó exitosamente";
-                    LOG.log(Level.INFO, "NO Grabó correctamente ");
+                    mensaje = "NOOOOOOOO Cliente se agregó exitosamente.";
+                    LOG.log(Level.INFO, "NO Grabó correctamente.");
                 }
 
             } catch (Exception ex) {
                 mensaje = ex.getMessage();
-                LOG.log(Level.SEVERE, "Error al grabar {0}", ex.getMessage());
+                LOG.log(Level.SEVERE, "Error al grabar {0}.", ex.getMessage());
             }
         } else {
             mensaje = "Favor, revise el formulario";
