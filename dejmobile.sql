@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-11-2016 a las 02:35:28
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 07-12-2016 a las 02:55:54
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `dejmobile`
 --
+CREATE DATABASE IF NOT EXISTS `dejmobile` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `dejmobile`;
 
 -- --------------------------------------------------------
 
@@ -26,9 +28,10 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `cliente`
 --
 
+DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `clave` varchar(45) NOT NULL,
-  `rut` varchar(11) NOT NULL,
+  `rut` varchar(14) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `paterno` varchar(45) NOT NULL,
   `materno` varchar(45) NOT NULL,
@@ -44,6 +47,7 @@ CREATE TABLE `cliente` (
 -- Estructura de tabla para la tabla `comuna`
 --
 
+DROP TABLE IF EXISTS `comuna`;
 CREATE TABLE `comuna` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL
@@ -408,6 +412,7 @@ INSERT INTO `comuna` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `minuto`
 --
 
+DROP TABLE IF EXISTS `minuto`;
 CREATE TABLE `minuto` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
@@ -420,6 +425,7 @@ CREATE TABLE `minuto` (
 -- Estructura de tabla para la tabla `navegacion`
 --
 
+DROP TABLE IF EXISTS `navegacion`;
 CREATE TABLE `navegacion` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
@@ -432,6 +438,7 @@ CREATE TABLE `navegacion` (
 -- Estructura de tabla para la tabla `solicitud`
 --
 
+DROP TABLE IF EXISTS `solicitud`;
 CREATE TABLE `solicitud` (
   `id` int(11) NOT NULL,
   `entrega` tinyint(1) NOT NULL,

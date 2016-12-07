@@ -5,12 +5,15 @@
  */
 package dto;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Willywes
  */
 public class ClienteDTO {
-    
+
     private String clave;
     private String rut;
     private String nombre;
@@ -21,7 +24,7 @@ public class ClienteDTO {
     private ComunaDTO comunaDTO;
     private int telefono;
 
-    public ClienteDTO(){
+    public ClienteDTO() {
     }
 
     public ClienteDTO(String clave, String rut, String nombre, String paterno, String materno, String direccion, String numero, ComunaDTO comunaDTO, int telefono) {
@@ -112,8 +115,7 @@ public class ClienteDTO {
     public String toString() {
         return "ClienteDTO{" + "clave=" + clave + ", rut=" + rut + ", nombre=" + nombre + ", paterno=" + paterno + ", materno=" + materno + ", direccion=" + direccion + ", numero=" + numero + ", comunaDTO=" + comunaDTO.getNombre() + ", telefono=" + telefono + '}';
     }
+
     
-    
-            
-    
+
 }
