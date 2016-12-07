@@ -26,7 +26,7 @@ public class ComunaDAO implements CrearCRUD<ComunaDTO> {
     private static final String SQL_DELETE = "DELETE FROM comuna WHERE id = ?";
     private static final String SQL_UPDATE = "UPDATE comuna SET nombre = ? WHERE id = ? ";
     private static final String SQL_READ = "SELECT * FROM comuna WHERE id = ?";
-    private static final String SQL_READALL = "SELECT * FROM comuna";
+    private static final String SQL_READALL = "SELECT * FROM comuna order by nombre";
 
     private static final Conexion con = Conexion.conectar();
 
