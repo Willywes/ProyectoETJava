@@ -55,26 +55,38 @@ public class Control {
         }
     }
 
-    public static boolean validarRut(String rut) {
-        int suma = 0;
-        String dvR, dvT;
-        int[] serie = {2, 3, 4, 5, 6, 7};
-        rut = rut.replace(".", "");
-        rut = rut.replace("-", "");
-        dvR = rut.substring(rut.length() - 1);
-        for (int i = rut.length() - 2; i >= 0; i--) {
-            suma += Integer.valueOf(rut.substring(i, i + 1))
-                    * serie[(rut.length() - 2 - i) % 6];
+    public static boolean validarRut(String rutS) throws Exception {
+//        int suma = 0;
+        char dv;
+        int rut;
+//        int[] serie = {2, 3, 4, 5, 6, 7};
+        rutS = rutS.replace(".", "");
+        String[] rutArray = rutS.split("-");
+        try {
+            rut = Integer.parseInt(rutArray[0]);
+        } catch (Exception e) {
+            throw new Exception("Rut debe ser válido.");
         }
-        dvT = String.valueOf(11 - suma % 11);
-        if (dvT.compareToIgnoreCase("10") == 0) {
-            dvT = "K";
-        }
+        dv = rutArray[1].charAt(0);
 
-        if (dvT.compareToIgnoreCase(dvR) == 0) {
-            return true;
-        } else {
-            return false;
+//        for (int i = rut.length() - 2; i >= 0; i--) {
+//            suma += Integer.valueOf(rut.substring(i, i + 1))
+//                    * serie[(rut.length() - 2 - i) % 6];
+//        }
+//        dvT = String.valueOf(11 - suma % 11);
+//        if (dvT.compareToIgnoreCase("10") == 0) {
+//            dvT = "K";
+//        }
+//
+//        if (dvT.compareToIgnoreCase(dvR) == 0) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        int m = 0, s = 1;
+        for (; rut != 0; rut /= 10) {
+            s = (s + rut % 10 * (9 - m++ % 6)) % 11;
         }
+        return dv == (char) (s != 0 ? s + 47 : 75);
     }
 }

@@ -21,7 +21,7 @@
             <table>
                 <tr>
                     <td>Rut</td>
-                    <td><input  maxlength="11" name="rut" type="text" placeholder="Ingrese Rut 11223344-K"/>*
+                    <td><input  maxlength="12" name="rut" type="text" value="<c:out value="${cliente.getRut()}" />" placeholder="Ingrese Rut 11223344-K"/>*
                         <c:out value="${mapMensajes['rut']}" />
                     </td>
                 </tr>
@@ -39,49 +39,46 @@
                 </tr>
                 <tr>
                     <td>Nombre</td>
-                    <td><input name="nombre"type="text" placeholder="Ingrese Nombre"/>*
+                    <td><input name="nombre"type="text" value="<c:out value="${cliente.getNombre()}" />" placeholder="Ingrese Nombre"/>*
                         <c:out value="${mapMensajes['nombre']}" />
                     </td>
                 </tr>
                 <tr>
                     <td>Apellido Paterno</td>
-                    <td><input name="paterno" type="text" placeholder="Ingrese Apellido Paterno"/>*
+                    <td><input name="paterno" type="text" value="<c:out value="${cliente.getPaterno()}" />" placeholder="Ingrese Apellido Paterno"/>*
                         <c:out value="${mapMensajes['paterno']}" />
                     </td>
                 </tr>
                 <tr>
                     <td>Apellido Materno</td>
-                    <td><input name="materno" type="text" placeholder="Ingrese Apellido Materno"/>*
+                    <td><input name="materno" type="text" value="<c:out value="${cliente.getMaterno()}" />" placeholder="Ingrese Apellido Materno"/>*
                         <c:out value="${mapMensajes['materno']}" />
                     </td>
                 </tr>
                 <tr>
                     <td>Dirección</td>
-                    <td><input name="direccion" type="text" placeholder="Ingrese Direccion"/>*
+                    <td><input name="direccion" type="text" value="<c:out value="${cliente.getDireccion()}" />" placeholder="Ingrese Direccion"/>*
                         <c:out value="${mapMensajes['direccion']}" />
                     </td>
                 </tr>
                 <tr>
                     <td>Numeración</td>
-                    <td><input name="numero" type="text" I/>*
+                    <td><input name="numero" value="<c:out value="${cliente.getNumero()}" />" type="text" I/>*
                         <c:out value="${mapMensajes['numero']}" />
                     </td>
                 </tr>
                 <tr>
                     <td>Comuna</td>
                     <td>
-                        <select name="id-comuna">
+                        <select name="id-comuna" >
                             <option value="">(seleccione)</option>
                             <%
                                 List<ComunaDTO> lista = new ComunaDAO().readAll();
                                 ComunaDTO c = new ComunaDTO();
-                                for (ComunaDTO d : lista) {
-                                    out.println("<option value=\"" + d.getId() + "\">" + d.getNombre() + "</option>");
+                                for (ComunaDTO d : lista) {                                    
+                                    out.println("<option value=\"" + d.getId() + "\"> " + d.getNombre() + "</option>");
                                 }
                             %>
-
-
-
                         </select>
                         <c:out value="${mapMensajes['id-comuna']}" />
                     </td>
@@ -89,7 +86,7 @@
                 </tr>
                 <tr>
                     <td>Teléfono</td>
-                    <td><input name="telefono" maxlength="9" type="text" placeholder="Ingrese Direccion" />
+                    <td><input name="telefono" maxlength="9" type="number" value="<c:out value="${cliente.getTelefono()}" />" placeholder="Ingrese Direccion" />
                         <c:out value="${mapMensajes['telefono']}" /></td>
                 </tr>
                 <tr>
