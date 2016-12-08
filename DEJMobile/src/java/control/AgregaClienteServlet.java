@@ -96,7 +96,7 @@ public class AgregaClienteServlet extends HttpServlet {
         String numero = request.getParameter("numero").toUpperCase();
         String idComunaS = request.getParameter("id-comuna");
         String telefonoS = request.getParameter("telefono");
-//        ClienteDTO clienteTemp = new ClienteDTO(clave, rut, nombre, paterno, materno, direccion, numero, new ComunaDAO().read(Integer.parseInt(idComunaS)), Integer.parseInt(telefonoS));
+
         int idComuna = 0;
         int telefono = 0;
 
@@ -161,17 +161,18 @@ public class AgregaClienteServlet extends HttpServlet {
 
         if (Control.comprobarVacio(telefonoS)) {
             mapMensajes.put("telefono", "Ingrese un telefono.");
-        }
-        try {
-            telefono = Integer.parseInt(telefonoS);
-        } catch (Exception e) {
-            mapMensajes.put("telefono", "Error en el numero de telefono.");
+        } else {
+            try {
+                telefono = Integer.parseInt(telefonoS);
+            } catch (Exception e) {
+                telefonoS = "";
+                mapMensajes.put("telefono", "Error en el numero de telefono.");
+            }
         }
         cliente = new ClienteDTO(Encriptar.getMD5(clave), rut, nombre, paterno, materno, direccion, numero, new ComunaDAO().read(idComuna), telefono);
-        
-        //delegar lógica de negocio
+
         if (mapMensajes.isEmpty()) {
-            //cliente = new ClienteDTO(Encriptar.getMD5(clave), rut, nombre, paterno, materno, direccion, numero, new ComunaDAO().read(idComuna), telefono);
+
             ClienteDAO dao = new ClienteDAO();
 
             try {
@@ -180,6 +181,7 @@ public class AgregaClienteServlet extends HttpServlet {
                     mensaje = "Cliente se agregó exitosamente.";
                     LOG.log(Level.INFO, "Grabó correctamente.");
                     cliente = null;
+                    telefonoS = null;
                 } else {
                     mensaje = "NOOOOOOOO Cliente se agregó exitosamente.";
                     LOG.log(Level.INFO, "NO Grabó correctamente.");
@@ -194,6 +196,7 @@ public class AgregaClienteServlet extends HttpServlet {
         }
 
         request.setAttribute("cliente", cliente);
+        request.setAttribute("telefono", telefonoS);
         request.setAttribute("mapMensajes", mapMensajes);
         request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher("/registro.jsp").forward(request, response);

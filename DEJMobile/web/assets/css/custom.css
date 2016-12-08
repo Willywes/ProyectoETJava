@@ -1,0 +1,39 @@
+h1, h2, h3, h4, h5, h6 {
+    font-weight: lighter;
+    margin: 3px 0;
+}
+
+h1 {
+    margin: 0 0 15px 0;
+}
+.contenedor-login{
+    width: 900px;    
+    height: 450px;    
+    margin: 100px auto;
+}
+
+.contenedor-login-bienvenida{
+    width: 50%;
+    height: 450px;
+    background: rgba(0,0,0,0.7);
+    float: left;
+}
+
+.contenedor-login-bienvenida h1{
+    color : #fFFFFF;
+}
+.contenedor-login-bienvenida img{
+    width: 90%;
+}
+.contenedor-login-form{
+    width: 50%;
+    height: 450px;
+    background: rgba(255,255,255,1);
+    float: left;
+}
+
+.contenedor-registro{    
+    width: 900px;      
+    margin: 50px auto;
+    background: #FFFFFF;
+}
