@@ -3,6 +3,10 @@
     Created on : 08-12-2016, 12:36:39
     Author     : Willywes
 --%>
+<%@page import="dao.SolicitudDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="dto.SolicitudDTO"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,12 +24,17 @@
                 width: 100%;
                 height: 100%;
             }
-
         </style>
 
         <title>DEJ Mobile - Mi Cuenta</title>
     </head>
     <body>
+        <%
+            HttpSession sesion = request.getSession();
+            if (sesion.getAttribute("clienteSession") == null) {
+                response.sendRedirect("index.jsp");
+            }
+        %> 
         <div class="contenedor">
             <%@include file="barra-usuario.jsp" %>
             <div class="panel-principal">
@@ -54,54 +63,32 @@
                                     <th>Ingreso</th>
                                     <th>Total</th>  
                                     <th></th> 
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>100225</td>
-                                    <td>20GB</td>
-                                    <td>80 Minutos</td>
-                                    <td>SI</td>
-                                    <td>900684339</td>
-                                    <td>VINA DEL MAR</td>
-                                    <td>25/12/2016 14:00:05</td>
-                                    <td><b>$5.400</b></td>
-                                    <td><a href="arma-tu-plan.jsp" class="uk-button uk-button-danger"><i class="uk-icon-remove"></i>&nbsp;Eliminar</a></td>
-                                </tr>
-                                <tr>
-                                    <td>100225</td>
-                                    <td>20GB</td>
-                                    <td>80 Minutos</td>
-                                    <td>SI</td>
-                                    <td>900684339</td>
-                                    <td>VINA DEL MAR</td>
-                                    <td>25/12/2016 14:00:05</td>
-                                    <td><b>$5.400</b></td>
-                                    <td><a href="arma-tu-plan.jsp" class="uk-button uk-button-danger"><i class="uk-icon-remove"></i>&nbsp;Eliminar</a></td>
-                                </tr>
-                                <tr>
-                                    <td>100225</td>
-                                    <td>20GB</td>
-                                    <td>80 Minutos</td>
-                                    <td>SI</td>
-                                    <td>900684339</td>
-                                    <td>VINA DEL MAR</td>
-                                    <td>25/12/2016 14:00:05</td>
-                                    <td><b>$5.400</b></td>
-                                    <td><a href="arma-tu-plan.jsp" class="uk-button uk-button-danger"><i class="uk-icon-remove"></i>&nbsp;Eliminar</a></td>
-                                </tr>
-                                <tr>
-                                    <td>100225</td>
-                                    <td>20GB</td>
-                                    <td>80 Minutos</td>
-                                    <td>SI</td>
-                                    <td>900684339</td>
-                                    <td>VINA DEL MAR</td>
-                                    <td>25/12/2016 14:00:05</td>
-                                    <td><b>$5.400</b></td>
-                                    <td><a href="arma-tu-plan.jsp" class="uk-button uk-button-danger"><i class="uk-icon-remove"></i>&nbsp;Eliminar</a></td>
-                                </tr>
+                                <%
+                                    ClienteDTO user = (ClienteDTO) sesion.getAttribute("clienteSession");
+                                    List<SolicitudDTO> listita = new SolicitudDAO().readAllUser(user.getRut());
+                                %>
+                                <c:forEach var="c" items="<%=listita%>">
+                                    <tr>
+                                        <td><c:out value="${c.getId()}"/></td>
+                                        <td><c:out value="${c.getNavegacionDTO().getDescripcion()}"/></td>
+                                        <td><c:out value="${c.getMinutoDTO().getDescripcion()}"/></td>
+                                        <td><c:if test="${c.getEntrega() == true}">
+                                                <c:out value="${c.getClienteDTO().getDireccion() } Nº ${c.getClienteDTO().getNumero()}"/>
+                                            </c:if>
+                                            <c:if test="${c.getEntrega() == false}">
+                                                RETIRO EN SUCURSAL
+                                            </c:if></td>
+                                        <td><c:out value="${c.getClienteDTO().getTelefono()}"/></td>
+                                        <td><c:out value="${c.getClienteDTO().getComunaDTO().getNombre()}"/></td>
+                                        <td><fmt:formatDate value="${c.getFecha_hora()}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
+                                        <td><b><c:out value="${c.getTotal()}"/></b></td>
+                                        <td><a href="arma-tu-plan.jsp" class="uk-button uk-button-danger"><i class="uk-icon-remove"></i>&nbsp;Eliminar</a></td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

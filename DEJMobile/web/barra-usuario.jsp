@@ -1,3 +1,5 @@
+<%@page import="dto.ClienteDTO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="user-bar">
     <div style="float:left; padding: 0 5px;">
         <script type="text/javascript"> 
@@ -31,7 +33,8 @@
             </script> 
         <span id="reloj"></span>   
     </div>
+    
     <div style="float: right; padding: 0 5px;">
-        <span>Bienvenido : USER NAME | </span><a href="#">Cerrar Sesión</a>
+        <span>Bienvenido : <c:out value="${sessionScope.clienteSession.getNombreCompleto()}"/> | </span><a href="#">Cerrar Sesión</a>
     </div>
 </div>

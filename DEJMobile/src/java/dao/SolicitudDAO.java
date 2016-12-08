@@ -40,7 +40,7 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO> {
 
         try {
             ps = con.getCn().prepareStatement(SQL_INSERT);
-            ps.setBoolean(1, o.isEntrega());
+            ps.setBoolean(1, o.getEntrega());
             ps.setInt(2, o.getTotal());
             ps.setString(3, ControlFecha.JavaToMySQL(o.getFecha_hora()));
             ps.setString(4, o.getClienteDTO().getRut());
@@ -85,7 +85,7 @@ public class SolicitudDAO implements CrearCRUD<SolicitudDTO> {
         try {
 
             ps = con.getCn().prepareStatement(SQL_UPDATE);
-            ps.setBoolean(1, o.isEntrega());
+            ps.setBoolean(1, o.getEntrega());
             ps.setInt(2, o.getTotal());
             ps.setString(3, ControlFecha.JavaToMySQL(o.getFecha_hora()));
             ps.setString(4, o.getClienteDTO().getRut());

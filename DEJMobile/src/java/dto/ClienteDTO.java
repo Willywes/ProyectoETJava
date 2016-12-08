@@ -116,6 +116,8 @@ public class ClienteDTO {
         return "ClienteDTO{" + "clave=" + clave + ", rut=" + rut + ", nombre=" + nombre + ", paterno=" + paterno + ", materno=" + materno + ", direccion=" + direccion + ", numero=" + numero + ", comunaDTO=" + comunaDTO.getNombre() + ", telefono=" + telefono + '}';
     }
 
-    
+    public String getNombreCompleto(){
+        return nombre + " " + paterno + " " +  materno;
+    }
 
 }

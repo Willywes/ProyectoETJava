@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +29,8 @@ import static utilidades.Control.comprobarSiExisteRut;
  */
 @WebServlet(name = "ControlAcceso", urlPatterns = {"/login"})
 public class ControlAcceso extends HttpServlet {
+
+    private static final Logger LOG = Logger.getLogger(ControlAcceso.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -81,54 +86,80 @@ public class ControlAcceso extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //variables 
-
+        HttpSession loginSession = request.getSession();
+        String mensaje = null;
         String rut = request.getParameter("rut");
         String clave = request.getParameter("pass");
+        boolean valido = false;
         //
-        ClienteDTO cliente = null;
+        ClienteDTO clienteSession = null;
         //mensajes de errores para guardar
         Map<String, String> mapMensajes = new HashMap<>();
 
-        String redireccion = ("index.jsp");
+        String redireccion = ("/index.jsp");
 
         if (Control.comprobarVacio(rut)) {
             mapMensajes.put("rut", "Ingrese un RUT.");
-        }
-
-        try {
-            String rutTemp = Control.transformarRut(rut);
-            if (!Control.validarRut(rutTemp)) {
-                mapMensajes.put("rut", "El RUT no esta Registrado .");
+        } else {
+            try {
+                String rutTemp = Control.transformarRut(rut);
+                if (!Control.validarRut(rutTemp)) {
+                    mapMensajes.put("rut", "El RUT no es válido.");
+                    rut = "";
+                } else {
+                    rut = rutTemp;
+                }
+            } catch (Exception ex) {
+                mapMensajes.put("rut", ex.getMessage());
                 rut = "";
-            } else {
-                rut = rutTemp;
             }
-        } catch (Exception ex) {
-            mapMensajes.put("rut", ex.getMessage());
-            rut = "";
         }
 
         if (!Control.comprobarSiExisteRut(rut)) {
-            mapMensajes.put("cliente", "este RUT no está registrado, debe registrarse.");
+            mapMensajes.put("rut", "este RUT no está registrado, debe registrarse.");
             rut = "";
-        } else if (!Control.comprobarVacio(clave)) {
+        } else if (Control.comprobarVacio(clave)) {
+            mapMensajes.put("clave", "Ingrese una clave.");
+        }
 
-            if (Control.comprobarPass(rut, clave)) {
-                //ahi vamos a logear
-                HttpSession loginSession = request.getSession(true);
-                redireccion = ("principal.jsp");
-                cliente = new ClienteDAO().read(rut);
-                loginSession.setAttribute("cliente", cliente);
-                PrintWriter pw = response.getWriter();
+        try {
+            if (Control.validarPassLogin(rut, clave)) {
+                valido = true;
+            } else {
+                mapMensajes.put("clave", "La clave no coincide.");
+            }
+        } catch (Exception e) {
+            mapMensajes.put("clave", "Ingrese una clave.");
+        }
 
+        String devolverRut = rut;
+
+        if (mapMensajes.isEmpty()) {
+            clienteSession = new ClienteDAO().read(rut);
+            loginSession.setAttribute("clienteSession", clienteSession);
+            try {
+                if (valido) {
+                    //PrintWriter pw = response.getWriter();
+                    LOG.log(Level.INFO, "Inició Sesión" + clienteSession.getRut() + " " + clienteSession.getNombre());
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/principal.jsp");
+                    requestDispatcher.forward(request, response);
+                } else {
+                    mensaje = "Error, no se pudo iniciar sesión.";
+                    LOG.log(Level.INFO, "Intento de Login fallido.");
+                }
+
+            } catch (Exception ex) {
+                mensaje = ex.getMessage();
+                LOG.log(Level.SEVERE, "Error al grabar {0}.", ex.getMessage());
             }
         } else {
-            mapMensajes.put("clave", "Ingrese una Clave");
+            mensaje = "Por favor, revise el formulario";
+            clienteSession = null;
         }
-        request.setAttribute("cliente", cliente);
-
+        request.setAttribute("devolverRut", devolverRut);
+        request.setAttribute("mensaje", mensaje);
+        request.setAttribute("cliente", clienteSession);
         request.setAttribute("mapMensajes", mapMensajes);
-
         request.getRequestDispatcher(redireccion).forward(request, response);
     }
 
