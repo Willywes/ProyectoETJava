@@ -6,8 +6,10 @@
 package utilidades;
 
 import dao.ClienteDAO;
+import dto.ClienteDTO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static utilidades.Encriptar.getMD5;
 
 /**
  *
@@ -26,6 +28,12 @@ public class Control {
     public static boolean comprobarSiExisteRut(String rut) {
         ClienteDAO dao = new ClienteDAO();
         return dao.ComprobarExiste(rut);
+    }
+
+    public static boolean comprobarContraseña(String rut, String pass) {
+        ClienteDTO cliente = new ClienteDAO().read(rut);
+        return cliente.getClave().equals(getMD5(pass));
+
     }
 
     public static String transformarRut(String rut) throws Exception {
@@ -89,4 +97,5 @@ public class Control {
         }
         return dv == (char) (s != 0 ? s + 47 : 75);
     }
+
 }

@@ -213,5 +213,10 @@ public class AgregaClienteServlet extends HttpServlet {
         request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher(redireccion).forward(request, response);
     }
+    
+     @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// <
 
 }

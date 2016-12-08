@@ -40,7 +40,7 @@
 
             <div class="contenedor-login-form">                    
                 <div style="padding:25px; text-align: center;">                        
-                    <form class="uk-form" action="principal.jsp">
+                    <form class="uk-form" method="post" action="/login">
                         <h1>DATOS DE ACCESO</h1>
                         <div class="uk-form-row uk-form-icon">
                             <i class="uk-icon-user"></i>
@@ -48,14 +48,24 @@
                         </div>
                         <div class="uk-form-row uk-form-icon">
                             <i class="uk-icon-key"></i>
-                            <input type="password" class="uk-form-large uk-form-width-large" name="rut" value="" placeholder="Ingrese Contraseña"/>
+                            <input type="password" class="uk-form-large uk-form-width-large" name="pass" value="" placeholder="Ingrese Contraseña"/>
                         </div>
                         <div class="uk-form-row" >
                             <input type="submit" style="color:white; font-size: 14px;" class="uk-button uk-button-danger uk-width-1-1 uk-button-large" value="Ingresar" />
                         </div> 
                     </form> 
                     <div>
-                        <br/><br/><br/><br/>
+                        <div style="height:60px;" >
+                             <c:if test="${not empty mapMensajes}">
+
+                        <div class="uk-alert uk-alert-danger">
+                            <div><c:out value="${mapMensajes['rut']}"/></div>
+                            <div><c:out value="${mapMensajes['clave']}"/></div>
+                            <div><c:out value="${mapMensajes['cliente']}"/></div>
+ 
+                        </div>
+                    </c:if>
+                        </div>
                         <p>Si no tiene cuenta de cliente, registrese gratis </p>
                         <div class="uk-form-row" >
                             <a style="color:white; font-size: 14px;" class="uk-button uk-button-danger uk-width-1-1 uk-button-large" href="registro.jsp">Registrar Cuenta</a>

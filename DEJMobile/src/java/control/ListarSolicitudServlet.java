@@ -6,8 +6,12 @@
 package control;
 
 import conexion.Conexion;
+import dao.ClienteDAO;
+import dto.ClienteDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ListarSolicitudServlet", urlPatterns = {"/ListarSolicitudServlet"})
 public class ListarSolicitudServlet extends HttpServlet {
-    private static final Conexion con = Conexion.conectar();
+   private static final Logger LOG = Logger.getLogger(ListarSolicitudServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,8 +65,22 @@ public class ListarSolicitudServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        ClienteDAO cliente = new ClienteDAO();
         
-     
+        String idSolicitud = request.getParameter("idSolicitud");
+        
+        
+        if(idSolicitud == null || idSolicitud.isEmpty()){
+            request.setAttribute("solicitud", cliente.read(Integer.parseInt(idSolicitud)));
+        }else{
+            request.setAttribute("solicitud", cliente.read(Integer.parseInt(idSolicitud)));
+        }
+        
+        request.setAttribute("solicitud", cliente.readAll());
+        request.getRequestDispatcher("principal.jsp").forward(request, response);
+        
+        
+    
     }
 
     /**
@@ -77,6 +95,30 @@ public class ListarSolicitudServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+//                int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
+//                ClienteDTO clientes= new ClienteDTO();
+//                ClienteDAO cliente = new ClienteDAO();
+//
+//                 cliente.delete(idSolicitud);
+//        request.setAttribute("mensaje", "Se ha eliminado el participante");
+//
+//        String strRaza = request.getParameter("idRaza");
+//        
+//        if(strRaza == null || strRaza.isEmpty()){
+//            request.setAttribute("solicitud", cliente.read(idSolicitud));
+//        }else{
+//           // request.setAttribute("solicitud", cliente.read(Integer.parseInt(idSolicitud)));
+//        }
+//        
+//        //request.setAttribute("solicitud",cliente.read(Integer.parseInt(idSolicitud));
+//        request.getRequestDispatcher("/participante_listar.jsp").forward(request, response);
+//
+//        
+//        
+//        
+//        
+//        request.setAttribute("solicitudes", cliente.readAll());
+//        request.getRequestDispatcher("principal.jsp").forward(request, response);
     }
 
     /**
