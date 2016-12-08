@@ -26,7 +26,12 @@
         <title>DEJ Mobile - Acceso</title>
     </head>
     <body>
-
+        <%
+            HttpSession miSession = (HttpSession) request.getSession();
+            if (miSession.getAttribute("clienteSession") != null) {
+                response.sendRedirect("principal.jsp");
+            }
+        %>
 
         <div class="contenedor-login">
 
@@ -40,11 +45,11 @@
 
             <div class="contenedor-login-form">                    
                 <div style="padding:25px; text-align: center;">                        
-                    <form class="uk-form" method="post" action="/login">
-                        <h1>DATOS DE ACCESO</h1>
+                    <form class="uk-form" style="text-align: left;" method="post" action="<c:url value="/login" />">
+                        <h1 style="text-align: center;">DATOS DE ACCESO</h1>
                         <div class="uk-form-row uk-form-icon">
                             <i class="uk-icon-user"></i>
-                            <input type="text" class="uk-form-large uk-form-width-large" name="rut" value="" placeholder="Ingrese Rut" autofocus />
+                            <input type="text" class="uk-form-large uk-form-width-large" name="rut" value="<c:out value="${devolverRut}"/>" placeholder="Ingrese Rut" autofocus />
                         </div>
                         <div class="uk-form-row uk-form-icon">
                             <i class="uk-icon-key"></i>
@@ -55,19 +60,24 @@
                         </div> 
                     </form> 
                     <div>
-                        <div style="height:60px;" >
-                             <c:if test="${not empty mapMensajes}">
+                        <div class="uk-width-1-1" style="height:140px;" >
+                            <c:if test="${not empty mensaje}">
+                                <div class="uk-alert uk-alert-danger">
+                                    <p style="font-size: 24px;"><c:out value="${mensaje}" /></p>
+                                </div>
+                            </c:if>
+                            <c:if test="${not empty mapMensajes}">
 
-                        <div class="uk-alert uk-alert-danger">
-                            <div><c:out value="${mapMensajes['rut']}"/></div>
-                            <div><c:out value="${mapMensajes['clave']}"/></div>
-                            <div><c:out value="${mapMensajes['cliente']}"/></div>
- 
-                        </div>
-                    </c:if>
-                        </div>
-                        <p>Si no tiene cuenta de cliente, registrese gratis </p>
-                        <div class="uk-form-row" >
+                                <div class="uk-alert uk-alert-danger">
+                                    <div><c:out value="${mapMensajes['rut']}"/></div>
+                                    <div><c:out value="${mapMensajes['clave']}"/></div>
+
+                                </div>
+                            </c:if>
+
+                        </div>                        
+                        <div class="uk-width-1-1" >
+                            <div>Si no tiene cuenta de cliente, registrese gratis</div>
                             <a style="color:white; font-size: 14px;" class="uk-button uk-button-danger uk-width-1-1 uk-button-large" href="registro.jsp">Registrar Cuenta</a>
 
                         </div>

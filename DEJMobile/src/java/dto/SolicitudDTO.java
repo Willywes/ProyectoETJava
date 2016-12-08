@@ -55,7 +55,7 @@ public class SolicitudDTO {
         this.id = id;
     }
 
-    public boolean isEntrega() {
+    public boolean getEntrega() {
         return entrega;
     }
 

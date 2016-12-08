@@ -30,7 +30,7 @@ public class Control {
         return dao.ComprobarExiste(rut);
     }
 
-    public static boolean comprobarContraseña(String rut, String pass) {
+    public static boolean validarPassLogin(String rut, String pass) {
         ClienteDTO cliente = new ClienteDAO().read(rut);
         return cliente.getClave().equals(getMD5(pass));
 

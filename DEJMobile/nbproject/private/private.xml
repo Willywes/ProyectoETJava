@@ -3,18 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/assets/css/custom.css</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/utilidades/Control.java</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/index.jsp</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/control/AgregaClienteServlet.java</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/barra-usuario.jsp</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/registro.jsp</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/principal.jsp</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/confirmar-plan.jsp</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/arma-tu-plan.jsp</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/dto/NavegacionDTO.java</file>
-            <file>file:/C:/Users/Willywes/Documents/GitHub/ProyectoETJava/DEJMobile/web/include.jsp</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/control/AgregaClienteServlet.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/web/registro.jsp</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/web/principal.jsp</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/dto/ComunaDTO.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/control/ControlAcceso.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/web/barra-usuario.jsp</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/utilidades/Control.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/dto/ClienteDTO.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/dao/ComunaDAO.java</file>
+            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>
