@@ -107,8 +107,12 @@
                             </div>
                             <br/>
                             <div class="uk-form-row">
-                                <input class="uk-button uk-button-danger uk-button-large" style="float:left; color:#fff;"type="submit" value="Enviar"/>&nbsp;
+                                <input class="uk-button uk-button-danger uk-button-large" style="float:left; color:#fff;"type="submit" value="Enviar"/>
                                 <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff;" type="reset" value="Limpiar"/>
+                                &nbsp;
+                                &nbsp;
+                                
+                                <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff; margin: 0 5px;" type="button" onclick="location.href='index.jsp';" value="Volver"/>
                             </div>
 
                         </fieldset>

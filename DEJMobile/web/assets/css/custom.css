@@ -37,3 +37,28 @@ h1 {
     margin: 50px auto;
     background: #FFFFFF;
 }
+
+.user-bar{
+    background: black;
+    color: #f5f5f5;
+    position : absolute;
+    top: 0;
+    line-height : 30px;
+    height: 30px;
+    width : 100%;
+        
+}
+.contenedor{
+    margin : 0 auto;
+}
+.panel-principal{
+    width: 900px;
+    margin : 50px auto;
+    padding : 25px;
+    background: white;
+    
+}
+
+.uk-table td {
+    line-height: 28px;
+}

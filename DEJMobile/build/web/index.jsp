@@ -40,7 +40,7 @@
 
             <div class="contenedor-login-form">                    
                 <div style="padding:25px; text-align: center;">                        
-                    <form class="uk-form" action="action">
+                    <form class="uk-form" action="principal.jsp">
                         <h1>DATOS DE ACCESO</h1>
                         <div class="uk-form-row uk-form-icon">
                             <i class="uk-icon-user"></i>
