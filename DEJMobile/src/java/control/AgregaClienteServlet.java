@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vina
  */
-@WebServlet(name = "AgregaClienteServlet", urlPatterns = {"/AgregaClienteServlet"})
+@WebServlet(name = "AgregaClienteServlet", urlPatterns = {"/registrar-cliente"})
 public class AgregaClienteServlet extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(AgregaClienteServlet.class.getName());
@@ -85,6 +85,8 @@ public class AgregaClienteServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        //datos para el dispatcher
+        String redireccion = "/registro.jsp";
         // recibir datos
         String rut = request.getParameter("rut").toUpperCase();
         String clave = request.getParameter("clave");
@@ -96,9 +98,10 @@ public class AgregaClienteServlet extends HttpServlet {
         String numero = request.getParameter("numero").toUpperCase();
         String idComunaS = request.getParameter("id-comuna");
         String telefonoS = request.getParameter("telefono");
-//        ClienteDTO clienteTemp = new ClienteDTO(clave, rut, nombre, paterno, materno, direccion, numero, new ComunaDAO().read(Integer.parseInt(idComunaS)), Integer.parseInt(telefonoS));
+
         int idComuna = 0;
         int telefono = 0;
+        boolean success = false;
 
         // instacias
         ClienteDTO cliente;
@@ -123,16 +126,17 @@ public class AgregaClienteServlet extends HttpServlet {
         }
 
         if (Control.comprobarSiExisteRut(rut)) {
-            mapMensajes.put("rut", "este RUT ya esta registrado pruebe con otro.");
+            mapMensajes.put("rut", "este RUT ya está registrado, pruebe iniciar sesión.");
+            rut = "";
         }
         if (Control.comprobarVacio(clave)) {
             mapMensajes.put("clave", "Ingrese una Clave");
         }
         if (Control.comprobarVacio(claveConfirmar)) {
-            mapMensajes.put("clave-confirmar", "Ingrese nuevamente una Clave.");
+            mapMensajes.put("clave-confirmar", "Ingrese nuevamente la Clave.");
         }
         if (!Control.comprobarPass(clave, claveConfirmar)) {
-            mapMensajes.put("clave-confirmar", "las claves no coinciden");
+            mapMensajes.put("clave-confirmar", "las claves no coinciden.");
         }
         if (Control.comprobarVacio(nombre)) {
             mapMensajes.put("nombre", "Ingrese un nombre.");
@@ -144,44 +148,53 @@ public class AgregaClienteServlet extends HttpServlet {
             mapMensajes.put("materno", "Ingrese un apellido materno.");
         }
         if (Control.comprobarVacio(direccion)) {
-            mapMensajes.put("direccion", "Ingrese una direccion.");
+            mapMensajes.put("direccion", "Ingrese una dirección.");
         }
         if (Control.comprobarVacio(numero)) {
-            mapMensajes.put("numero", "Ingrese un numero en la direccion.");
+            mapMensajes.put("numero", "Ingrese un número en la dirección.");
         }
         if (Control.comprobarVacio(idComunaS)) {
-            mapMensajes.put("id-comuna", "Seleccione una Comuna.");
+            mapMensajes.put("id-comuna", "Seleccione una comuna.");
         }
 
         try {
             idComuna = Integer.parseInt(idComunaS);
         } catch (Exception e) {
-            mapMensajes.put("id-comuna", "Seleccione una Comuna.");
+            mapMensajes.put("id-comuna", "Seleccione una comuna.");
         }
 
         if (Control.comprobarVacio(telefonoS)) {
-            mapMensajes.put("telefono", "Ingrese un telefono.");
+            mapMensajes.put("telefono", "Ingrese un número de teléfono.");
+        } else {
+            try {
+                telefono = Integer.parseInt(telefonoS);
+                if (telefono < 100000000 || telefono > 1000000000) {
+                    mapMensajes.put("telefono", "el número de télefono debe ser de 9 digitos.");
+                    telefonoS = "";
+                }
+            } catch (Exception e) {
+                telefonoS = "";
+                mapMensajes.put("telefono", "Error al ingresar el número de teléfono.");
+            }
         }
-        try {
-            telefono = Integer.parseInt(telefonoS);
-        } catch (Exception e) {
-            mapMensajes.put("telefono", "Error en el numero de telefono.");
-        }
-        cliente = new ClienteDTO(Encriptar.getMD5(clave), rut, nombre, paterno, materno, direccion, numero, new ComunaDAO().read(idComuna), telefono);
-        
-        //delegar lógica de negocio
-        if (mapMensajes.isEmpty()) {
-            //cliente = new ClienteDTO(Encriptar.getMD5(clave), rut, nombre, paterno, materno, direccion, numero, new ComunaDAO().read(idComuna), telefono);
-            ClienteDAO dao = new ClienteDAO();
 
+        cliente = new ClienteDTO(Encriptar.getMD5(clave), rut, nombre, paterno, materno, direccion, numero, new ComunaDAO().read(idComuna), telefono);
+
+        if (mapMensajes.isEmpty()) {
+
+            ClienteDAO dao = new ClienteDAO();
             try {
 
                 if (dao.create(cliente)) {
-                    mensaje = "Cliente se agregó exitosamente.";
+                    success = true;
+                    mensaje = "Registro Éxitoso.";
                     LOG.log(Level.INFO, "Grabó correctamente.");
                     cliente = null;
+                    telefonoS = null;
+                    //redireccion ="/index.jsp";
+
                 } else {
-                    mensaje = "NOOOOOOOO Cliente se agregó exitosamente.";
+                    mensaje = "Error, no se registró el Cliente.";
                     LOG.log(Level.INFO, "NO Grabó correctamente.");
                 }
 
@@ -190,24 +203,15 @@ public class AgregaClienteServlet extends HttpServlet {
                 LOG.log(Level.SEVERE, "Error al grabar {0}.", ex.getMessage());
             }
         } else {
-            mensaje = "Favor, revise el formulario";
+            mensaje = "Por favor, revise el formulario";
         }
 
         request.setAttribute("cliente", cliente);
+        request.setAttribute("telefono", telefonoS);
         request.setAttribute("mapMensajes", mapMensajes);
+        request.setAttribute("success", success);
         request.setAttribute("mensaje", mensaje);
-        request.getRequestDispatcher("/registro.jsp").forward(request, response);
+        request.getRequestDispatcher(redireccion).forward(request, response);
     }
 
 }
-
-/**
- * Returns a short description of the servlet.
- *
- * @return a String containing servlet description
- */
-// @Override
-//    public String getServletInfo() {
-//        return "Short description";
-//    }
-
