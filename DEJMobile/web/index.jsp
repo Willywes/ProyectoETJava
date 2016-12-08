@@ -44,7 +44,7 @@
                         <h1>DATOS DE ACCESO</h1>
                         <div class="uk-form-row uk-form-icon">
                             <i class="uk-icon-user"></i>
-                            <input type="text" class="uk-form-large uk-form-width-large" name="rut" value="" placeholder="Ingrese Rut"/>
+                            <input type="text" class="uk-form-large uk-form-width-large" name="rut" value="" placeholder="Ingrese Rut" autofocus />
                         </div>
                         <div class="uk-form-row uk-form-icon">
                             <i class="uk-icon-key"></i>
