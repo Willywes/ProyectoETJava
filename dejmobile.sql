@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2016 a las 02:55:54
--- Versión del servidor: 10.1.19-MariaDB
--- Versión de PHP: 5.6.28
+-- Tiempo de generación: 09-12-2016 a las 00:37:56
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -28,10 +28,9 @@ USE `dejmobile`;
 -- Estructura de tabla para la tabla `cliente`
 --
 
-DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `clave` varchar(45) NOT NULL,
-  `rut` varchar(14) NOT NULL,
+  `rut` varchar(12) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `paterno` varchar(45) NOT NULL,
   `materno` varchar(45) NOT NULL,
@@ -41,13 +40,21 @@ CREATE TABLE `cliente` (
   `telefono` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`clave`, `rut`, `nombre`, `paterno`, `materno`, `direccion`, `numero`, `comuna_id`, `telefono`) VALUES
+('202cb962ac59075b964b07152d234b70', '16.483.941-9', 'ALEJANDRO', 'ISLA', 'CARRASCO', 'MADRID', '2663', 5302, 990684339),
+('202cb962ac59075b964b07152d234b70', '16.665.454-8', 'JIMMY', 'MENESES', 'OLEA', 'PATRIA VIEJA', '118', 5301, 988826247),
+('202cb962ac59075b964b07152d234b70', '17.753.134-0', 'SEBASTIAN', 'CABELLO', 'PASTEN', 'INGLATERRA', '330', 2201, 998826247);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `comuna`
 --
 
-DROP TABLE IF EXISTS `comuna`;
 CREATE TABLE `comuna` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL
@@ -412,12 +419,20 @@ INSERT INTO `comuna` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `minuto`
 --
 
-DROP TABLE IF EXISTS `minuto`;
 CREATE TABLE `minuto` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `precio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `minuto`
+--
+
+INSERT INTO `minuto` (`id`, `descripcion`, `precio`) VALUES
+(1, '800 Minutos', 1000),
+(2, '2000 Minutos', 3000),
+(3, '3000 Minutos', 5000);
 
 -- --------------------------------------------------------
 
@@ -425,12 +440,20 @@ CREATE TABLE `minuto` (
 -- Estructura de tabla para la tabla `navegacion`
 --
 
-DROP TABLE IF EXISTS `navegacion`;
 CREATE TABLE `navegacion` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(100) NOT NULL,
   `precio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `navegacion`
+--
+
+INSERT INTO `navegacion` (`id`, `descripcion`, `precio`) VALUES
+(1, '5 Gigas', 4000),
+(2, '7 Gigas', 6000),
+(3, '10 Gigas', 8000);
 
 -- --------------------------------------------------------
 
@@ -438,16 +461,23 @@ CREATE TABLE `navegacion` (
 -- Estructura de tabla para la tabla `solicitud`
 --
 
-DROP TABLE IF EXISTS `solicitud`;
 CREATE TABLE `solicitud` (
   `id` int(11) NOT NULL,
   `entrega` tinyint(1) NOT NULL,
   `total` int(11) NOT NULL,
   `fecha_hora` datetime NOT NULL,
-  `cliente_rut` varchar(11) NOT NULL,
+  `cliente_rut` varchar(12) NOT NULL,
   `navegacion_id` int(11) NOT NULL,
   `minuto_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `solicitud`
+--
+
+INSERT INTO `solicitud` (`id`, `entrega`, `total`, `fecha_hora`, `cliente_rut`, `navegacion_id`, `minuto_id`) VALUES
+(3, 1, 123123, '2016-12-30 05:16:00', '17.753.134-0', 2, 2),
+(4, 0, 123123, '2016-12-27 00:17:00', '17.753.134-0', 1, 3);
 
 --
 -- Índices para tablas volcadas
@@ -495,17 +525,17 @@ ALTER TABLE `solicitud`
 -- AUTO_INCREMENT de la tabla `minuto`
 --
 ALTER TABLE `minuto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `navegacion`
 --
 ALTER TABLE `navegacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Restricciones para tablas volcadas
 --
