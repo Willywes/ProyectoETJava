@@ -11,8 +11,8 @@ SISTEMA DE REGISTRO SOLICITUDES DE PLANES DE CELULAR
 - Netbeans 8.1 IDE
 - Glassfish 4.1.1
 
-Alejandro Isla
-Jimmy Meneses
+Alejandro Isla,
+Jimmy Meneses,
 Sebastian Cabello
 
 Analista Programador Computacional - Duoc UC 2016
