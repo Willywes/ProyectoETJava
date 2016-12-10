@@ -29,7 +29,7 @@
         <title>DEJ Mobile - Mi Cuenta</title>
     </head>
     <body>
-        <%@page session="true" %>
+        
         <%
             HttpSession miSession = (HttpSession) request.getSession();
             
