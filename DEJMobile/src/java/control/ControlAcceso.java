@@ -71,6 +71,8 @@ public class ControlAcceso extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+       
     }
 
     /**
@@ -160,7 +162,7 @@ public class ControlAcceso extends HttpServlet {
         request.setAttribute("mensaje", mensaje);
         request.setAttribute("cliente", clienteSession);
         request.setAttribute("mapMensajes", mapMensajes);
-        request.getRequestDispatcher(redireccion).forward(request, response);
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     /**

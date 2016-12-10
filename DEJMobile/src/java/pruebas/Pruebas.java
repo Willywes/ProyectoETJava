@@ -1,4 +1,6 @@
-package conexion;
+package pruebas;
+
+
 
 import dao.*;
 import dto.ClienteDTO;
@@ -20,7 +22,7 @@ import utilidades.Encriptar;
  *
  * @author Willywes
  */
-public class NewClass {
+public class Pruebas {
 
     public static void main(String[] args) {
 

@@ -29,11 +29,14 @@
         <title>DEJ Mobile - Mi Cuenta</title>
     </head>
     <body>
+        
         <%
-            HttpSession sesion = request.getSession();
-            if (sesion.getAttribute("clienteSession") == null) {
+            HttpSession miSession = (HttpSession) request.getSession();
+            
+            if (miSession == null) {
                 response.sendRedirect("index.jsp");
             }
+
         %> 
         <div class="contenedor">
             <%@include file="barra-usuario.jsp" %>
@@ -67,8 +70,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%
-                                    ClienteDTO user = (ClienteDTO) sesion.getAttribute("clienteSession");
+                                <%  
+                                    ClienteDTO user = (ClienteDTO) miSession.getAttribute("clienteSession");
                                     List<SolicitudDTO> listita = new SolicitudDAO().readAllUser(user.getRut());
                                 %>
                                 <c:forEach var="c" items="<%=listita%>">

@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/control/AgregaClienteServlet.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/web/registro.jsp</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/web/principal.jsp</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/dto/ComunaDTO.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/control/ControlAcceso.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/web/barra-usuario.jsp</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/utilidades/Control.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/dto/ClienteDTO.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/src/java/dao/ComunaDAO.java</file>
-            <file>file:/C:/Users/Sebastian/Documents/GitHub/ProyectoETJava/DEJMobile/web/index.jsp</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/web/index.jsp</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/src/java/conexion/Conexion.java</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/web/barra-usuario.jsp</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/web/principal.jsp</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/src/java/control/ControlAcceso.java</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/src/java/control/CerraSesionServlet.java</file>
         </group>
     </open-files>
 </project-private>
