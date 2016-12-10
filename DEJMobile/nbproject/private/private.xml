@@ -5,6 +5,11 @@
         <group>
             <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/src/java/control/AgregaClienteServlet.java</file>
             <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/web/index.jsp</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/src/java/conexion/Conexion.java</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/web/barra-usuario.jsp</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/web/principal.jsp</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/src/java/control/ControlAcceso.java</file>
+            <file>file:/home/willywes/Github/ProyectoETJava/DEJMobile/src/java/control/CerraSesionServlet.java</file>
         </group>
     </open-files>
 </project-private>
