@@ -189,7 +189,7 @@ public class AgregaClienteServlet extends HttpServlet {
 
                 if (dao.create(cliente)) {
                     success = true;
-                    mensaje = "Registro Éxitoso.";
+                    mensaje = "Registro Exitoso.";
                     LOG.log(Level.INFO, "Grabó correctamente.");
                     cliente = null;
                     telefonoS = null;

@@ -7,6 +7,7 @@ package utilidades;
 
 import dao.ClienteDAO;
 import dto.ClienteDTO;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static utilidades.Encriptar.getMD5;
@@ -98,4 +99,9 @@ public class Control {
         return dv == (char) (s != 0 ? s + 47 : 75);
     }
 
+    public static String formatearDinero(int money){
+        DecimalFormat formatear = new DecimalFormat("$###,###");
+        String laMonea = formatear.format(money);
+        return laMonea;
+    }
 }
