@@ -35,6 +35,6 @@
     </div>
     
     <div style="float: right; padding: 0 5px;">
-        <span>Bienvenido : <c:out value="${sessionScope.clienteSession.getNombreCompleto()}"/> | </span><a href="#">Cerrar Sesión</a>
+        <span>Bienvenido : <c:out value="${sessionScope.clienteSession.getNombreCompleto()}"/> | </span><a href="cerrar-sesion" accesskey="1" title="Cerrar Sesión">Cerrar Sesión</a>
     </div>
 </div>

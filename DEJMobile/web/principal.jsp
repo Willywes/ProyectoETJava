@@ -30,8 +30,9 @@
     </head>
     <body>
         <%
-            HttpSession sesion = request.getSession();
-            if (sesion.getAttribute("clienteSession") == null) {
+            
+            HttpSession loginSession = (HttpSession) request.getSession();
+            if (loginSession.getAttribute("clienteSession") == null) {
                 response.sendRedirect("index.jsp");
             }
         %> 
@@ -68,7 +69,7 @@
                             </thead>
                             <tbody>
                                 <%
-                                    ClienteDTO user = (ClienteDTO) sesion.getAttribute("clienteSession");
+                                    ClienteDTO user = (ClienteDTO) loginSession.getAttribute("clienteSession");
                                     List<SolicitudDTO> listita = new SolicitudDAO().readAllUser(user.getRut());
                                 %>
                                 <c:forEach var="c" items="<%=listita%>">
