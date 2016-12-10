@@ -33,7 +33,7 @@
         <%
             HttpSession miSession = (HttpSession) request.getSession();
             
-            if (miSession == null) {
+            if (miSession.getAttribute("clienteSession") == null) {
                 response.sendRedirect("index.jsp");
             }
 
