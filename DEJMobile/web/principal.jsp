@@ -29,10 +29,10 @@
         <title>DEJ Mobile - Mi Cuenta</title>
     </head>
     <body>
-        
+
         <%
             HttpSession miSession = (HttpSession) request.getSession();
-            
+
             if (miSession.getAttribute("clienteSession") == null) {
                 response.sendRedirect("index.jsp");
             }
@@ -70,8 +70,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%  
-                                    ClienteDTO user = (ClienteDTO) miSession.getAttribute("clienteSession");
+                                <%                                    ClienteDTO user = (ClienteDTO) miSession.getAttribute("clienteSession");
                                     List<SolicitudDTO> listita = new SolicitudDAO().readAllUser(user.getRut());
                                 %>
                                 <c:forEach var="c" items="<%=listita%>">
@@ -89,7 +88,18 @@
                                         <td><c:out value="${c.getClienteDTO().getComunaDTO().getNombre()}"/></td>
                                         <td><fmt:formatDate value="${c.getFecha_hora()}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
                                         <td><b><c:out value="${c.getTotal()}"/></b></td>
-                                        <td><a href="arma-tu-plan.jsp" class="uk-button uk-button-danger"><i class="uk-icon-remove"></i>&nbsp;Eliminar</a></td>
+                                        <!--  <td><a href="arma-tu-plan.jsp" class="uk-button uk-button-danger"><i class="uk-icon-remove"></i>&nbsp;Eliminar</a></td>-->
+                                        <td>
+                                            <c:url var="EliminarSolicitud" value="/ListarParticipante">
+                                                <c:param name="idSolicitud" value="${param.id}"/>
+                                            </c:url>
+                                            <form action = "${urlEliminar}" method="post">
+                                                <input type="hidden" name="idSolicitud" value="${c.Id}">
+                                                <input type="submit" class="uk-button uk-button-danger" value ="Eliminar" />
+                                            </form>
+                                        </td>
+
+
                                     </tr>
                                 </c:forEach>
                             </tbody>
