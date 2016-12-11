@@ -5,6 +5,7 @@
 --%>
 <%@page import="dto.SolicitudDTO"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -27,10 +28,7 @@
         <title>DEJ Mobile - Confirma tu Plan</title>
     </head>
     <body>
-        <%
-            HttpSession miSession = (HttpSession) request.getSession();
-            SolicitudDTO solicitud = (SolicitudDTO) miSession.getAttribute("solucionSession");
-        %>
+      
         <div class="contenedor">
             <%@include file="barra-usuario.jsp" %>
             <div class="panel-principal">
@@ -40,9 +38,17 @@
                         <h3>Los datos son : </h3>
                         <br/>
                     </div>
+                    
+                    <div class="uk-width-1-1" style="">
+                        <c:if test="${not empty mensaje}">
+                            <div class="uk-alert uk-alert-danger">
+                                <p style="font-size: 24px;"><c:out value="${mensaje}" /></p>
+                            </div>
+                        </c:if>
+                    </div> 
 
                     <div class="uk-width-1-1">
-                        <form class="uk-form" action="<c:url value="/AgregarSolicitud"/>" method="post">
+                        <form class="uk-form" action="<c:url value="/agregar-solicitud"/>" method="post">
                             <fieldset data-uk-margin>                          
 
                                 <div class="uk-form-row">
@@ -64,7 +70,7 @@
                                 </div>
                                 <div class="uk-form-row">
                                     <span><b>TOTAL PLAN :&nbsp;</b></span>
-                                    <span><b>$<c:out value="${solicitud.getTotal()}"/></b>&nbsp;Mensuales</span>
+                                    <span><b>$&nbsp;<fmt:formatNumber value="${solicitud.getTotal()}" pattern="###,###" />.-</b>&nbsp;Mensuales</span>
                                 </div>
                                 <br/>
                                 <div class="uk-form-row">
