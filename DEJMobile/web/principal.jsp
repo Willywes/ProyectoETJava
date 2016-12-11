@@ -65,8 +65,7 @@
                                     <th>Comuna</th>
                                     <th>Ingreso</th>
                                     <th>Total</th>  
-                                    <th></th> 
-
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,12 +93,10 @@
                                                 <c:param name="idSolicitud" value="${param.id}"/>
                                             </c:url>
                                             <form action = "${urlEliminar}" method="post">
-                                                <input type="hidden" name="idSolicitud" value="${c.Id}">
+                                                <input type="hidden" name="idSolicitud" value="${c.id}">
                                                 <input type="submit" class="uk-button uk-button-danger" value ="Eliminar" />
                                             </form>
                                         </td>
-
-
                                     </tr>
                                 </c:forEach>
                             </tbody>
