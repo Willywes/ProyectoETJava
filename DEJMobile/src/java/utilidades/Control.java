@@ -8,8 +8,6 @@ package utilidades;
 import dao.ClienteDAO;
 import dto.ClienteDTO;
 import java.text.DecimalFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static utilidades.Encriptar.getMD5;
 
 /**

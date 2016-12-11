@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="uk-width-1-1">
-                        <form class="uk-form" action="" method="">
+                        <form class="uk-form" action="<c:url value="/AgregarSolicitud"/>" method="post">
                             <fieldset data-uk-margin>                          
 
                                 <div class="uk-form-row">
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="uk-form-row">
                                     <span><b>TOTAL PLAN :&nbsp;</b></span>
-                                    <span><b><c:out value="${utilidades.Control.formatearDinero(solicitud.getTotal())}"/></b>&nbsp;Mensuales</span>
+                                    <span><b>$<c:out value="${solicitud.getTotal()}"/></b>&nbsp;Mensuales</span>
                                 </div>
                                 <br/>
                                 <div class="uk-form-row">

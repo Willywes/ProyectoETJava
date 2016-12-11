@@ -29,10 +29,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author Sebastian
  */
-@WebServlet(name = "ArmarPlanServlet", urlPatterns = {"/ArmarPlan"})
-public class ArmarPlanServlet extends HttpServlet {
+@WebServlet(name = "ArmarSolicitudServlet", urlPatterns = {"/ArmarSolicitud"})
+public class ArmarSolicitudServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(ArmarPlanServlet.class.getName());
+    private static final Logger LOG = Logger.getLogger(ArmarSolicitudServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

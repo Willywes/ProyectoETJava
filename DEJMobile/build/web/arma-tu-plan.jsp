@@ -57,7 +57,7 @@
                         </c:if>
                     </div> 
                     <div class="uk-width-1-1">
-                        <form class="uk-form" action="<c:url value="/ArmarPlan"/>" method="get">
+                        <form class="uk-form" action="<c:url value="/ArmarSolicitud"/>" method="get">
                             <fieldset data-uk-margin>
                                 <p><em>(*) Campos Obligatorios</em></p>
 
@@ -98,7 +98,7 @@
                                     &nbsp;
                                     &nbsp;
 
-                                    <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff; margin: 0 5px;" type="button" onclick="location.href = 'principal.jsp';" value="Volver"/>
+                                    <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff; margin: 0 5px;" type="button" onclick="location.href='principal.jsp';" value="Volver"/>
                                 </div>
 
                             </fieldset>
