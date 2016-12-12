@@ -6,6 +6,7 @@
 package control;
 
 import dao.ClienteDAO;
+import dao.SolicitudDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Logger;
@@ -19,9 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jimmymeneses
  */
-@WebServlet(name = "EliminarSolicitudServlet", urlPatterns = {"/EliminarSolicitud"})
+@WebServlet(name = "EliminarSolicitudServlet", urlPatterns = {"/eliminar-solicitud"})
 public class EliminarSolicitudServlet extends HttpServlet {
- private static final Logger LOG = Logger.getLogger(AgregaClienteServlet.class.getName());
+
+    private static final Logger LOG = Logger.getLogger(AgregaClienteServlet.class.getName());
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,7 +39,7 @@ public class EliminarSolicitudServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
- 
+
         }
     }
 
@@ -52,7 +55,7 @@ public class EliminarSolicitudServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
     }
 
@@ -67,21 +70,20 @@ public class EliminarSolicitudServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                response.setContentType("text/html;charset=UTF-8");
-        
-        
+        response.setContentType("text/html;charset=UTF-8");
+
         String idSolicitud = request.getParameter("idSolicitud");
-        ClienteDAO cliente = new ClienteDAO();
-        cliente.delete(Integer.parseInt(idSolicitud));
-        request.setAttribute("mensaje", "Se ha eliminado la Solicitud.");
-
-        if (idSolicitud == null || idSolicitud.isEmpty()) {
-            request.setAttribute("solicitud", cliente.read(Integer.parseInt(idSolicitud)));
-        } else {
-            request.setAttribute("solicitud", cliente.read(Integer.parseInt(idSolicitud)));
+        SolicitudDAO solicitud = new SolicitudDAO();
+        String mensaje = null;
+        try {
+            solicitud.delete(Integer.parseInt(idSolicitud));
+            mensaje = "se a eliminado la solicitud con exito.";
+        } catch (Exception e) {
+            mensaje = "Error al eliminar la solicitud."
+                     + e.getMessage();
         }
-
-        request.setAttribute("solicitud", cliente.readAll());
+        
+        request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher("principal.jsp").forward(request, response);
     }
 

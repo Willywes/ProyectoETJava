@@ -97,9 +97,4 @@ public class Control {
         return dv == (char) (s != 0 ? s + 47 : 75);
     }
 
-    public static String formatearDinero(int money){
-        DecimalFormat formatear = new DecimalFormat("$###,###");
-        String laMonea = formatear.format(money);
-        return laMonea;
-    }
 }

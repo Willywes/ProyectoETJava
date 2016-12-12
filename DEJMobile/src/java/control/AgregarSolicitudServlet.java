@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Sebastian
  */
-@WebServlet(name = "AgregarSolicitudServlet", urlPatterns = {"/AgregarSolicitud"})
+@WebServlet(name = "AgregarSolicitudServlet", urlPatterns = {"/agregar-solicitud"})
 public class AgregarSolicitudServlet extends HttpServlet {
 
     /**
@@ -79,16 +79,20 @@ public class AgregarSolicitudServlet extends HttpServlet {
         HttpSession miSession = (HttpSession) request.getSession();
         SolicitudDTO solicitud = (SolicitudDTO) miSession.getAttribute("solicitudSession");
         String redireccion = "/confirmar-plan.jsp";
+        String mensaje = null;
         
         try {
             SolicitudDAO soli = new SolicitudDAO();
             if (soli.create(solicitud)) {
                 redireccion = "/principal.jsp";
+                miSession.setAttribute("solicitudSession", null);
             }            
         } catch (Exception e) {
             redireccion = "/arma-tu-plan.jsp";
+            mensaje = "no se pudo registra su solicitud";
         }
         
+        request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher(redireccion).forward(request, response);
     }
 

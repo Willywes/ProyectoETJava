@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Sebastian
  */
-@WebServlet(name = "ArmarSolicitudServlet", urlPatterns = {"/ArmarSolicitud"})
+@WebServlet(name = "ArmarSolicitudServlet", urlPatterns = {"/armar-solicitud"})
 public class ArmarSolicitudServlet extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(ArmarSolicitudServlet.class.getName());
@@ -75,17 +75,19 @@ public class ArmarSolicitudServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String navegacionS = request.getParameter("navegacion");
-        String minutoS = request.getParameter("minutos");
+        String minutoS = request.getParameter("minutos");        
         boolean entrega = Boolean.parseBoolean(request.getParameter("entrega"));
+        
         ClienteDTO cliente = (ClienteDTO) request.getSession().getAttribute("clienteSession");
         String rut = cliente.getRut();
+        
         int minuto = 0;
         int navegacion = 0;
         int total = 0;
 
         HttpSession solicitudSession = request.getSession();
         String redireccion = "/arma-tu-plan.jsp";
-        boolean success;
+    
         SolicitudDTO solicitud = new SolicitudDTO();
         Map<String, String> mapMensajes = new HashMap<>();
         String mensaje = null;
@@ -109,33 +111,17 @@ public class ArmarSolicitudServlet extends HttpServlet {
         
 
         solicitud = new SolicitudDTO(entrega, total, new Date(), new ClienteDAO().read(rut), new NavegacionDAO().read(navegacion), new MinutoDAO().read(minuto));
+        
+        solicitudSession.setAttribute("solicitudSession", solicitud);
 
-        if (mapMensajes.isEmpty()) {
-            solicitudSession.setAttribute("solicitudSession", solicitud);
+        if (mapMensajes.isEmpty()) {      
+          // solicitudSession.setAttribute("solicitudSession", solicitud);
             redireccion = "/confirmar-plan.jsp";
         } else {
             mensaje = "Por favor, revise el formulario";
         }
 
-//        if (mapMensajes.isEmpty()) {
-//            SolicitudDAO soli = new SolicitudDAO();
-//            try {
-//                if (soli.create(solicitud)) {
-//                    success = true;
-//                    mensaje = "Registro Exitoso.";
-//                    LOG.log(Level.INFO, "Grabó correctamente.");
-//                    solicitud = null;
-//                }else{
-//                    mensaje = "Error, no se registró la Solicitud.";
-//                    LOG.log(Level.INFO, "NO Grabó correctamente.");
-//                }
-//            } catch (Exception e) {
-//                mensaje = e.getMessage();
-//                LOG.log(Level.SEVERE, "Error al grabar {0}.", e.getMessage());
-//            }
-//        }else{
-//            mensaje = "Por favor, revise el formulario";
-//        }
+
         request.setAttribute("solicitud", solicitud);
         request.setAttribute("mapMensajes", mapMensajes);
         request.setAttribute("mensaje", mensaje);

@@ -11,7 +11,7 @@ import dto.SolicitudDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-import utilidades.Encriptar;
+import utilidades.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -99,6 +99,7 @@ public class Pruebas {
 //            System.out.println("no pe");
 //        }
  
+        
 
     }
 }

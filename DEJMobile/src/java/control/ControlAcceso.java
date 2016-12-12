@@ -89,17 +89,17 @@ public class ControlAcceso extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //variables 
         HttpSession loginSession = request.getSession();
+        
         String mensaje = null;
         String rut = request.getParameter("rut");
         String clave = request.getParameter("pass");
         boolean valido = false;
         //
         ClienteDTO clienteSession = null;
+        
         //mensajes de errores para guardar
         Map<String, String> mapMensajes = new HashMap<>();
-
-        String redireccion = ("/index.jsp");
-
+                
         if (Control.comprobarVacio(rut)) {
             mapMensajes.put("rut", "Ingrese un RUT.");
         } else {

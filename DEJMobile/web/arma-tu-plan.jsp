@@ -3,6 +3,7 @@
     Created on : 08-12-2016, 12:36:39
     Author     : Willywes
 --%>
+<%@page import="dto.SolicitudDTO"%>
 <%@page import="dao.MinutoDAO"%>
 <%@page import="dto.MinutoDTO"%>
 <%@page import="dao.NavegacionDAO"%>
@@ -57,7 +58,7 @@
                         </c:if>
                     </div> 
                     <div class="uk-width-1-1">
-                        <form class="uk-form" action="<c:url value="/ArmarSolicitud"/>" method="get">
+                        <form class="uk-form" action="<c:url value="/armar-solicitud"/>" method="get">
                             <fieldset data-uk-margin>
                                 <p><em>(*) Campos Obligatorios</em></p>
 
@@ -66,11 +67,11 @@
                                     <select name="navegacion" >
                                         <option value="">(Seleccione Navegación)</option>
                                         <%
-                                            List<NavegacionDTO> lista = new NavegacionDAO().readAll();
+                                            List<NavegacionDTO> lista = new NavegacionDAO().readAll();                                                                                 
                                         %>
                                         <c:forEach var="c" items="<%=lista%>">
                                             <option value="${c.getId()}" ${c.getId() == solicitud.getNavegacionDTO().getId() ? 'selected':''}>
-                                                <c:out value="${c.getDescripcion()}"/>         
+                                            <c:out value="${c.getDescripcion()}"/>          
                                             </option>
                                         </c:forEach>
                                     </select>
@@ -80,10 +81,11 @@
                                 <div class="uk-form-row">
                                     <span>(*)&nbsp;<b>Minutos :&nbsp;</b></span>
                                     <%
-                                        List<MinutoDTO> listaMinutos = new MinutoDAO().readAll();
+                                        List<MinutoDTO> listaMinutos = new MinutoDAO().readAll();  
+
                                     %>
                                     <c:forEach var="m" items="<%=listaMinutos%>">
-                                        <input type="radio" name="minutos" value="${m.getId()}" checked="${m.getId() == solicitud.getMinutoDTO().getId() ? 'checked':''}"> ${m.getDescripcion()} &nbsp;
+                                        <input type="radio" name="minutos" value="${m.getId()}" ${m.getId() == solicitud.getMinutoDTO().getId() ? 'checked':''}> ${m.getDescripcion()} &nbsp;
                                     </c:forEach>
                                 </div>
                                 <p></p>
