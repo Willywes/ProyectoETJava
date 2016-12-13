@@ -72,6 +72,24 @@ public class ArmarSolicitudServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession solicitudSession = request.getSession();
+        SolicitudDTO solicitud = (SolicitudDTO)solicitudSession.getAttribute("solicitudSession");
+        request.setAttribute("solicitud", solicitud);
+        request.getRequestDispatcher("/arma-tu-plan.jsp").forward(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         String navegacionS = request.getParameter("navegacion");
@@ -126,20 +144,6 @@ public class ArmarSolicitudServlet extends HttpServlet {
         request.setAttribute("mapMensajes", mapMensajes);
         request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher(redireccion).forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
     }
 
     /**

@@ -80,7 +80,7 @@
                                     &nbsp;
                                     &nbsp;
 
-                                    <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff; margin: 0 5px;" type="button" onclick="location.href = 'arma-tu-plan.jsp';" value="Volver"/>
+                                    <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff; margin: 0 5px;" type="button" onclick="location.href = 'armar-solicitud';" value="Volver"/>
                                 </div>
 
                             </fieldset>

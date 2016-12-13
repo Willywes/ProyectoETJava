@@ -58,7 +58,7 @@
                         </c:if>
                     </div> 
                     <div class="uk-width-1-1">
-                        <form class="uk-form" action="<c:url value="/armar-solicitud"/>" method="get">
+                        <form class="uk-form" action="<c:url value="/armar-solicitud"/>" method="post">
                             <fieldset data-uk-margin>
                                 <p><em>(*) Campos Obligatorios</em></p>
 
@@ -77,7 +77,6 @@
                                     </select>
                                 </div>
                                 <p></p>
-
                                 <div class="uk-form-row">
                                     <span>(*)&nbsp;<b>Minutos :&nbsp;</b></span>
                                     <%
@@ -91,7 +90,7 @@
                                 <p></p>
                                 <div class="uk-form-row">
                                     <span><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Entrega en Domicilio :&nbsp;</b></span>
-                                    <input type="checkbox" name="entrega" value="true">
+                                    <input type="checkbox" name="entrega" value="true" ${solicitud.getEntrega() ? 'checked':''}>
                                 </div>
                                 <br/>
                                 <div class="uk-form-row">
