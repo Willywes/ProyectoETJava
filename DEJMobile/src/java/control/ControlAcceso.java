@@ -88,7 +88,8 @@ public class ControlAcceso extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //variables 
-        HttpSession loginSession = request.getSession();
+        
+        HttpSession session = request.getSession(true); 
         
         String mensaje = null;
         String rut = request.getParameter("rut");
@@ -138,7 +139,9 @@ public class ControlAcceso extends HttpServlet {
 
         if (mapMensajes.isEmpty()) {
             clienteSession = new ClienteDAO().read(rut);
-            loginSession.setAttribute("clienteSession", clienteSession);
+            
+            session.setAttribute("clienteSession", clienteSession);
+            
             try {
                 if (valido) {
                     //PrintWriter pw = response.getWriter();

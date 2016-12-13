@@ -62,8 +62,8 @@ public class CerraSesionServlet extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
 
-        HttpSession loginSession = request.getSession();
-        loginSession.setAttribute("clienteSession", null);
+        HttpSession session = request.getSession(false);
+	session.removeAttribute("clienteSession");
         response.sendRedirect("index.jsp");
 
     }

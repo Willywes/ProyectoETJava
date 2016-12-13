@@ -26,12 +26,6 @@
         <title>DEJ Mobile - Acceso</title>
     </head>
     <body>
-        <%
-            HttpSession miSession = (HttpSession) request.getSession();
-            if (miSession.getAttribute("clienteSession") != null) {
-                response.sendRedirect("principal.jsp");
-            }
-        %>
 
         <div class="contenedor-login">
 

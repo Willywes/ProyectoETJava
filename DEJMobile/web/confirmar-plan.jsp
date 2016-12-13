@@ -28,7 +28,21 @@
         <title>DEJ Mobile - Confirma tu Plan</title>
     </head>
     <body>
-      
+        <%
+            session = request.getSession(); 
+            
+            if (session == null) {
+
+                response.sendRedirect("index.jsp");
+
+            }
+            if (session.getAttribute("clienteSession") == null) {
+
+                response.sendRedirect("index.jsp");
+
+            }
+        %>
+
         <div class="contenedor">
             <%@include file="barra-usuario.jsp" %>
             <div class="panel-principal">
@@ -38,7 +52,7 @@
                         <h3>Los datos son : </h3>
                         <br/>
                     </div>
-                    
+
                     <div class="uk-width-1-1" style="">
                         <c:if test="${not empty mensaje}">
                             <div class="uk-alert uk-alert-danger">
@@ -62,11 +76,11 @@
                                 <div class="uk-form-row">
                                     <span><b>Entrega en Domicilio :&nbsp;</b></span>
                                     <span><c:if test="${solicitud.getEntrega() == true}">
-                                                Entrega del Chip en domicilio.
-                                            </c:if>
-                                            <c:if test="${solicitud.getEntrega() == false}">
-                                                Entrega del Chip en sucursal.
-                                            </c:if></span>
+                                            Entrega del Chip en domicilio.
+                                        </c:if>
+                                        <c:if test="${solicitud.getEntrega() == false}">
+                                            Entrega del Chip en sucursal.
+                                        </c:if></span>
                                 </div>
                                 <div class="uk-form-row">
                                     <span><b>TOTAL PLAN :&nbsp;</b></span>

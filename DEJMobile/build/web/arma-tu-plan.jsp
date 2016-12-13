@@ -32,6 +32,20 @@
         <title>DEJ Mobile - Arma tu Plan</title>
     </head>
     <body>
+        <%
+            session = request.getSession(); 
+            
+            if (session == null) {
+
+                response.sendRedirect("index.jsp");
+                
+            }
+            if (session.getAttribute("clienteSession") == null) {
+
+                response.sendRedirect("index.jsp");
+
+            }
+        %>
         <div class="contenedor">
             <%@include file="barra-usuario.jsp" %>
             <div class="panel-principal">
@@ -67,11 +81,11 @@
                                     <select name="navegacion" >
                                         <option value="">(Seleccione Navegación)</option>
                                         <%
-                                            List<NavegacionDTO> lista = new NavegacionDAO().readAll();                                                                                 
+                                            List<NavegacionDTO> lista = new NavegacionDAO().readAll();
                                         %>
                                         <c:forEach var="c" items="<%=lista%>">
                                             <option value="${c.getId()}" ${c.getId() == solicitud.getNavegacionDTO().getId() ? 'selected':''}>
-                                            <c:out value="${c.getDescripcion()}"/>          
+                                                <c:out value="${c.getDescripcion()}"/>          
                                             </option>
                                         </c:forEach>
                                     </select>
@@ -80,7 +94,7 @@
                                 <div class="uk-form-row">
                                     <span>(*)&nbsp;<b>Minutos :&nbsp;</b></span>
                                     <%
-                                        List<MinutoDTO> listaMinutos = new MinutoDAO().readAll();  
+                                        List<MinutoDTO> listaMinutos = new MinutoDAO().readAll();
 
                                     %>
                                     <c:forEach var="m" items="<%=listaMinutos%>">
@@ -95,11 +109,11 @@
                                 <br/>
                                 <div class="uk-form-row">
                                     <input class="uk-button uk-button-danger uk-button-large" style="float:left; color:#fff;" type="submit" value="Paso 2"/>
-                                    <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff;" type="reset" value="Limpiar"/>
+                                    <!--<input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff;" type="reset" value="Limpiar"/>
                                     &nbsp;
-                                    &nbsp;
+                                    &nbsp;-->
 
-                                    <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff; margin: 0 5px;" type="button" onclick="location.href='principal.jsp';" value="Volver"/>
+                                    <input class="uk-button uk-button-danger uk-button-large" style="float:right; color:#fff; margin: 0 5px;" type="button" onclick="location.href = 'principal.jsp';" value="Volver"/>
                                 </div>
 
                             </fieldset>

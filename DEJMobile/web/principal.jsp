@@ -30,14 +30,6 @@
     </head>
     <body>
 
-        <%
-            HttpSession miSession = (HttpSession) request.getSession();
-
-            if (miSession.getAttribute("clienteSession") == null) {
-                response.sendRedirect("index.jsp");
-            }
-
-        %> 
         <div class="contenedor">
             <%@include file="barra-usuario.jsp" %>
             <div class="panel-principal">
@@ -76,9 +68,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% 
-                                    ClienteDTO user = (ClienteDTO) miSession.getAttribute("clienteSession");
-                                    List<SolicitudDTO> listita = new SolicitudDAO().readAllUser(user.getRut());
+                                <%
+                                    ClienteDTO user = null;
+                                    List<SolicitudDTO> listita = null;
+
+                                    if (session != null) {
+
+                                        if (session.getAttribute("clienteSession") != null) {
+
+                                            user = (ClienteDTO) session.getAttribute("clienteSession");
+                                            listita = new SolicitudDAO().readAllUser(user.getRut());
+
+                                        } else {
+                                            response.sendRedirect("index.jsp");
+                                        }
+                                    } else {
+                                        response.sendRedirect("index.jsp");
+                                    }
+
+                                    
                                 %>
                                 <c:forEach var="c" items="<%=listita%>">
                                     <tr>
@@ -97,7 +105,7 @@
                                         <td><b><span style="float:left;">$&nbsp;</span><span style="float:right;"><fmt:formatNumber value="${c.getTotal()}" pattern="###,###" />.-</span></b></td>
                                         <!--  <td><a href="arma-tu-plan.jsp" class="uk-button uk-button-danger"><i class="uk-icon-remove"></i>&nbsp;Eliminar</a></td>-->
                                         <td>
-                                           
+
                                             <form action="<c:url value="/eliminar-solicitud"/>" method="post">
                                                 <input type="hidden" name="idSolicitud" value="${c.getId()}">
                                                 <button  type="submit" class="uk-button uk-button-danger" data-uk-tooltip title="Eliminar"><i data-uk-tooltip title="Eliminar" class="uk-icon-trash"></i></button>
